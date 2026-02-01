@@ -234,37 +234,59 @@ def find_pdf_url(repec_url: str) -> Optional[str]:
         return None
 
 
-def download_paper_pdf(repec_url: str, output_dir: Path) -> Optional[Path]:
+def sanitize_filename(title: str) -> str:
+    """Convert paper title to a safe filename."""
+    # Remove/replace problematic characters
+    safe = re.sub(r'[^\w\s-]', '', title)
+    safe = re.sub(r'\s+', '_', safe)
+    return safe[:80].strip('_')  # Limit length
+
+
+def download_paper_pdf(repec_url: str, output_dir: Path, paper_title: str = "") -> Optional[Path]:
     """Download a paper's PDF from its RePec link.
 
     Args:
         repec_url: URL to the RePec paper page
         output_dir: Directory to save the PDF
+        paper_title: Paper title for generating filename
 
     Returns:
         Path to downloaded PDF, or None if download failed
     """
+    # Generate filename from title if provided
+    if paper_title:
+        base_filename = sanitize_filename(paper_title) + ".pdf"
+        existing = output_dir / base_filename
+        if existing.exists():
+            print(f"    Found existing: {base_filename}")
+            return existing
+
     pdf_url = find_pdf_url(repec_url)
 
     if not pdf_url:
-        print(f"    No PDF link found")
+        print(f"    No PDF link found on page: {repec_url}")
         return None
 
     try:
-        print(f"    Downloading from: {pdf_url[:60]}...")
-        response = requests.get(pdf_url, timeout=60, allow_redirects=True)
+        print(f"    Downloading: {pdf_url[:70]}...")
+        headers = {'User-Agent': 'Mozilla/5.0 (compatible; research-screening)'}
+        response = requests.get(pdf_url, timeout=60, allow_redirects=True, headers=headers)
         response.raise_for_status()
 
         # Check if we actually got a PDF
         content_type = response.headers.get('content-type', '')
-        if 'pdf' not in content_type.lower() and not response.content[:4] == b'%PDF':
-            print(f"    Not a PDF (content-type: {content_type})")
+        is_pdf = 'pdf' in content_type.lower() or response.content[:4] == b'%PDF'
+        if not is_pdf:
+            print(f"    Not a PDF (content-type: {content_type}, starts with: {response.content[:20]})")
             return None
 
-        # Generate filename from URL
-        filename = urlparse(pdf_url).path.split('/')[-1]
-        if not filename.endswith('.pdf'):
-            filename = f"paper_{hash(pdf_url) % 10000}.pdf"
+        # Use title-based filename if available, otherwise from URL
+        if paper_title:
+            filename = sanitize_filename(paper_title) + ".pdf"
+        else:
+            filename = urlparse(pdf_url).path.split('/')[-1]
+            if not filename.endswith('.pdf'):
+                filename = f"paper_{hash(pdf_url) % 10000}.pdf"
 
         output_path = output_dir / filename
         output_path.write_bytes(response.content)
@@ -778,9 +800,10 @@ if not papers_for_phase2:
     phase2_results = []
     phase2_cost = 0.0
 else:
-    # Create temp directory for PDFs
-    pdf_dir = Path(tempfile.mkdtemp(prefix="nep_papers_"))
-    print(f"Downloading PDFs to: {pdf_dir}")
+    # Use local papers directory (persists between runs)
+    pdf_dir = Path("papers")
+    pdf_dir.mkdir(exist_ok=True)
+    print(f"PDFs directory: {pdf_dir.absolute()}")
     print()
 
     phase2_results = []
@@ -790,8 +813,8 @@ else:
         paper = p1_result["paper"]
         print(f"[{i}/{len(papers_for_phase2)}] {paper['title'][:50]}...")
 
-        # Download PDF
-        pdf_path = download_paper_pdf(paper["link"], pdf_dir)
+        # Download PDF (or use existing)
+        pdf_path = download_paper_pdf(paper["link"], pdf_dir, paper["title"])
 
         if pdf_path is None:
             print(f"    Skipping: PDF not available")

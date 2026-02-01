@@ -2,6 +2,9 @@
 paper_screener.html
 paper_screener_files/
 
+# Downloaded PDFs
+papers/
+
 # API keys
 .Renviron
 
