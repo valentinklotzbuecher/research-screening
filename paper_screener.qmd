@@ -1,0 +1,1221 @@
+---
+title: "LLM-Assisted Paper Screening for Unjournal"
+subtitle: "Two-Phase NEP-RepEc Feed Screening"
+author: "Valentin Klotzbücher"
+date: today
+format:
+  html:
+    theme: slate
+    toc: true
+    toc-depth: 3
+    code-fold: true
+  pdf:
+    toc: true
+    toc-depth: 3
+    echo: false
+
+# =============================================================================
+# SCREENING CONFIGURATION - Edit these parameters before rendering
+# =============================================================================
+params:
+  # NEP category code (e.g., ain, dev, exp, hea)
+  # See https://nep.repec.org/ for full list
+  nep_category: "ain"
+
+  # Phase 1: Minimum score on title+abstract to download PDF
+  phase1_threshold: 50
+
+  # Phase 2: Minimum score on full PDF for final recommendation
+  phase2_threshold: 60
+
+  # LLM provider: "openai", "anthropic", or "google"
+  provider: "anthropic"
+
+  # Model to use (leave empty to use provider default)
+  model: "claude-sonnet-4-20250514"
+
+  # Focus areas (comma-separated, leave empty for general screening)
+  focus_areas: "global priorities, development economics, impact evaluation, animal welfare, existential risk"
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(reticulate)
+
+# Validate parameters
+valid_providers <- c("openai", "anthropic", "google")
+
+if (!params$provider %in% valid_providers) {
+  stop("Invalid provider. Use: ", paste(valid_providers, collapse = ", "))
+}
+
+nep_category <- params$nep_category
+phase1_threshold <- as.numeric(params$phase1_threshold)
+phase2_threshold <- as.numeric(params$phase2_threshold)
+```
+
+## Screening Configuration
+
+| Parameter | Value |
+|-----------|-------|
+| **NEP Category** | `r params$nep_category` |
+| **Feed URL** | `https://nep.repec.org/rss/nep-`r params$nep_category`.rss.xml` |
+| **Phase 1 Threshold** | `r params$phase1_threshold` (title+abstract) |
+| **Phase 2 Threshold** | `r params$phase2_threshold` (full PDF) |
+| **Provider** | `r params$provider` |
+| **Model** | `r if (params$model != "") params$model else "(provider default)"` |
+| **Focus areas** | `r if (params$focus_areas != "") params$focus_areas else "(general screening)"` |
+
+## About This Tool
+
+This tool screens working papers from [NEP (New Economics Papers)](https://nep.repec.org/) RSS feeds for potential relevance to [The Unjournal](https://unjournal.org).
+
+**Two-Phase Screening Process:**
+
+1. **Phase 1 (Fast/Cheap):** Screen title + abstract only
+   - Papers scoring ≥ `r params$phase1_threshold` proceed to Phase 2
+2. **Phase 2 (Full Analysis):** Download PDF and perform detailed screening
+   - Papers scoring ≥ `r params$phase2_threshold` are flagged for human review
+
+**Screening criteria** (based on Unjournal prioritization guidelines):
+
+1. **Global decision-relevance**: Is this research relevant to high-value choices for global priorities and welfare?
+2. **Methodological interest**: Does it use rigorous methods that warrant expert evaluation?
+3. **Evaluation value-add**: Would public expert evaluation provide useful signal beyond what exists?
+4. **Open science alignment**: Does it use transparent, reproducible approaches?
+
+```{python}
+#| label: setup-config
+#| code-fold: true
+#| code-summary: "Setup: Imports, API keys, retry logic"
+
+import os
+import base64
+import time
+import random
+import json
+import re
+import tempfile
+from pathlib import Path
+from typing import Optional, List, Dict
+from datetime import datetime
+from urllib.parse import urljoin, urlparse
+
+import feedparser
+import requests
+
+# Default models per provider
+MODELS = {
+    "openai": os.getenv("LLM_SCREEN_MODEL_OPENAI", "gpt-4o"),
+    "anthropic": os.getenv("LLM_SCREEN_MODEL_ANTHROPIC", "claude-sonnet-4-20250514"),
+    "google": os.getenv("LLM_SCREEN_MODEL_GOOGLE", "gemini-2.0-flash"),
+}
+
+def load_renviron():
+    """Load API keys from .Renviron file (R convention)."""
+    for path in [Path(".Renviron"), Path.home() / ".Renviron"]:
+        if path.exists():
+            for line in path.read_text().splitlines():
+                line = line.strip()
+                if "=" in line and not line.startswith("#"):
+                    key, val = line.split("=", 1)
+                    key = key.strip()
+                    val = val.strip().strip('"').strip("'")
+                    if key and val and key not in os.environ:
+                        os.environ[key] = val
+
+load_renviron()
+
+def call_with_retries(fn, max_tries: int = 5, base_delay: float = 1.0):
+    """Retry API calls with exponential backoff for transient failures."""
+    last_error = None
+    for attempt in range(1, max_tries + 1):
+        try:
+            return fn()
+        except Exception as e:
+            last_error = e
+            if attempt < max_tries:
+                delay = base_delay * (2 ** (attempt - 1)) * (1 + 0.2 * random.random())
+                time.sleep(min(delay, 30))
+    raise last_error
+```
+
+```{python}
+#| label: rss-fetch
+#| code-fold: true
+#| code-summary: "RSS: Fetch papers from NEP-RepEc feed"
+
+def fetch_nep_feed(category: str) -> List[Dict]:
+    """Fetch and parse NEP-RepEc RSS feed for a given category.
+
+    Args:
+        category: NEP category code (e.g., 'ain', 'dev', 'exp')
+
+    Returns:
+        List of paper dicts with title, authors, abstract, link
+    """
+    url = f"https://nep.repec.org/rss/nep-{category}.rss.xml"
+
+    print(f"Fetching RSS feed: {url}")
+    feed = feedparser.parse(url)
+
+    if feed.bozo and not feed.entries:
+        raise ValueError(f"Failed to parse feed: {feed.bozo_exception}")
+
+    papers = []
+    for entry in feed.entries:
+        # Extract abstract from description/summary
+        abstract = entry.get('summary', entry.get('description', ''))
+
+        # Clean up HTML tags if present
+        abstract = re.sub(r'<[^>]+>', '', abstract)
+        abstract = abstract.strip()
+
+        # Extract authors - NEP feeds typically have author in dc:creator or author field
+        authors = entry.get('author', entry.get('dc_creator', 'Unknown'))
+        if isinstance(authors, list):
+            authors = ', '.join(authors)
+
+        papers.append({
+            'title': entry.get('title', 'Untitled'),
+            'authors': authors,
+            'abstract': abstract,
+            'link': entry.get('link', ''),
+            'id': entry.get('id', entry.get('link', '')),
+        })
+
+    print(f"Found {len(papers)} papers in feed")
+    return papers
+```
+
+```{python}
+#| label: pdf-download
+#| code-fold: true
+#| code-summary: "PDF: Download paper from RePec link"
+
+def find_pdf_url(repec_url: str) -> Optional[str]:
+    """Try to find a PDF URL from a RePec paper page.
+
+    Args:
+        repec_url: URL to the RePec paper page
+
+    Returns:
+        PDF URL if found, None otherwise
+    """
+    try:
+        # Follow redirects and get the actual page
+        response = requests.get(repec_url, timeout=30, allow_redirects=True)
+        response.raise_for_status()
+
+        html = response.text
+
+        # Common patterns for PDF links on RePEc/IDEAS pages
+        pdf_patterns = [
+            r'href=["\']([^"\']*\.pdf)["\']',
+            r'href=["\']([^"\']*download[^"\']*)["\']',
+            r'href=["\']([^"\']*fulltext[^"\']*\.pdf)["\']',
+        ]
+
+        for pattern in pdf_patterns:
+            matches = re.findall(pattern, html, re.IGNORECASE)
+            for match in matches:
+                # Convert relative URLs to absolute
+                pdf_url = urljoin(response.url, match)
+                # Verify it looks like a PDF URL
+                if '.pdf' in pdf_url.lower() or 'download' in pdf_url.lower():
+                    return pdf_url
+
+        return None
+
+    except Exception as e:
+        print(f"    Error finding PDF: {e}")
+        return None
+
+
+def download_paper_pdf(repec_url: str, output_dir: Path) -> Optional[Path]:
+    """Download a paper's PDF from its RePec link.
+
+    Args:
+        repec_url: URL to the RePec paper page
+        output_dir: Directory to save the PDF
+
+    Returns:
+        Path to downloaded PDF, or None if download failed
+    """
+    pdf_url = find_pdf_url(repec_url)
+
+    if not pdf_url:
+        print(f"    No PDF link found")
+        return None
+
+    try:
+        print(f"    Downloading from: {pdf_url[:60]}...")
+        response = requests.get(pdf_url, timeout=60, allow_redirects=True)
+        response.raise_for_status()
+
+        # Check if we actually got a PDF
+        content_type = response.headers.get('content-type', '')
+        if 'pdf' not in content_type.lower() and not response.content[:4] == b'%PDF':
+            print(f"    Not a PDF (content-type: {content_type})")
+            return None
+
+        # Generate filename from URL
+        filename = urlparse(pdf_url).path.split('/')[-1]
+        if not filename.endswith('.pdf'):
+            filename = f"paper_{hash(pdf_url) % 10000}.pdf"
+
+        output_path = output_dir / filename
+        output_path.write_bytes(response.content)
+
+        print(f"    Saved: {output_path.name} ({len(response.content) / 1024:.1f} KB)")
+        return output_path
+
+    except Exception as e:
+        print(f"    Download failed: {e}")
+        return None
+```
+
+```{python}
+#| label: prompts
+#| code-fold: true
+#| code-summary: "Prompts: Phase 1 (abstract) and Phase 2 (full PDF)"
+
+BACKTICKS = "``" + "`"
+
+PHASE1_JSON_EXAMPLE = """{
+  "title": "Paper title",
+  "authors": "Author names",
+  "topic_relevance": <0-100>,
+  "methodological_substance": <0-100>,
+  "potential_impact": <0-100>,
+  "overall_score": <0-100 average>,
+  "brief_reasoning": "1-2 sentences on why this does/doesn't warrant full review",
+  "proceed_to_phase2": true/false
+}"""
+
+PHASE2_JSON_EXAMPLE = """{
+  "title": "Paper title as stated",
+  "authors": "Author names",
+  "summary": "2-3 sentence summary of what the paper does and finds",
+  "scores": {
+    "global_relevance": <0-100>,
+    "methodological_interest": <0-100>,
+    "evaluation_value_add": <0-100>,
+    "open_science": <0-100>
+  },
+  "overall_relevance": <0-100 weighted average>,
+  "key_claims": [
+    "Claim 1 that could be evaluated",
+    "Claim 2 that could be evaluated",
+    "Claim 3 that could be evaluated"
+  ],
+  "methods_summary": "Brief description of main methods used",
+  "recommendation": "EVALUATE | MAYBE | SKIP",
+  "reasoning": "2-3 sentences explaining the recommendation",
+  "red_flags": ["Any concerns about quality, ethics, or suitability"],
+  "similar_unjournal_work": "If you recognize similar papers Unjournal has evaluated, mention them"
+}"""
+
+def get_phase1_prompt(focus_areas: str = "") -> str:
+    """Generate the Phase 1 screening prompt for title + abstract."""
+
+    focus_section = ""
+    if focus_areas and focus_areas.strip():
+        focus_section = (
+            "\nPRIORITY FOCUS AREAS:\n"
+            "The Unjournal is particularly interested in research related to:\n"
+            + focus_areas + "\n\n"
+            "Weight relevance to these areas in your assessment.\n"
+        )
+
+    return (
+        "You are screening working papers for The Unjournal based on title and abstract only.\n\n"
+        "Your task: Quick assessment of whether this paper warrants downloading the full PDF for detailed review.\n"
+        + focus_section +
+        "\nSCREENING CRITERIA (assess based on title + abstract):\n\n"
+        "1. **Topic Relevance (0-100)**: Does this appear relevant to global priorities, policy, or welfare?\n"
+        "2. **Methodological Substance (0-100)**: Does it seem to use rigorous quantitative methods?\n"
+        "3. **Potential Impact (0-100)**: Could this research inform important decisions?\n\n"
+        "OUTPUT FORMAT (use exactly this JSON structure):\n\n"
+        + BACKTICKS + "json\n" + PHASE1_JSON_EXAMPLE + "\n" + BACKTICKS + "\n\n"
+        "Be selective: most papers should NOT proceed. Only flag papers that clearly align with Unjournal priorities.\n\n"
+        "PAPER TO SCREEN:\n\n"
+        "Title: {title}\n"
+        "Authors: {authors}\n\n"
+        "Abstract:\n{abstract}"
+    )
+
+
+def get_phase2_prompt(focus_areas: str = "") -> str:
+    """Generate the Phase 2 screening prompt for full PDF analysis."""
+
+    focus_section = ""
+    if focus_areas and focus_areas.strip():
+        focus_section = (
+            "\nPRIORITY FOCUS AREAS:\n"
+            "The Unjournal is particularly interested in research related to:\n"
+            + focus_areas + "\n\n"
+            "Weight relevance to these areas in your assessment, but don't exclude potentially valuable work outside them.\n"
+        )
+
+    return (
+        "You are screening working papers for The Unjournal, a nonprofit that commissions public expert evaluations of impactful research in economics, policy, and quantitative social science.\n\n"
+        "Your task: Assess whether this paper warrants human expert evaluation based on Unjournal's prioritization criteria.\n"
+        + focus_section +
+        "\nSCREENING CRITERIA:\n\n"
+        "1. **Global Decision-Relevance (0-100)**\n"
+        "   - Does this research inform high-stakes decisions affecting global welfare?\n"
+        "   - Is it relevant to philanthropy, policy, or resource allocation?\n"
+        "   - Does it address neglected but important questions?\n\n"
+        "2. **Methodological Interest (0-100)**\n"
+        "   - Does it use rigorous quantitative methods that warrant expert review?\n"
+        "   - Are there non-trivial methodological choices that experts should assess?\n"
+        "   - Would methodological critique add value?\n\n"
+        "3. **Evaluation Value-Add (0-100)**\n"
+        "   - Is this work not yet peer-reviewed, or in a venue where review quality is uncertain?\n"
+        "   - Would public evaluation provide signal that doesn't already exist?\n"
+        "   - Is this work influential or potentially influential, making evaluation valuable?\n\n"
+        "4. **Open Science Alignment (0-100)**\n"
+        "   - Does it share data, code, or use transparent methods?\n"
+        "   - Is it in a format conducive to evaluation (working paper, preprint)?\n"
+        "   - Does it represent the kind of research practices Unjournal wants to encourage?\n\n"
+        "OUTPUT FORMAT (use exactly this JSON structure):\n\n"
+        + BACKTICKS + "json\n" + PHASE2_JSON_EXAMPLE + "\n" + BACKTICKS + "\n\n"
+        "RECOMMENDATION GUIDELINES:\n"
+        "- EVALUATE (score >= 70): Strong candidate for Unjournal evaluation\n"
+        "- MAYBE (score 50-69): Worth human review of this screening; borderline case\n"
+        "- SKIP (score < 50): Likely not a priority; explain why\n\n"
+        "Be calibrated: most papers should NOT be high priority. Reserve high scores for genuinely impactful, decision-relevant research with methodological substance.\n\n"
+        "Now screen the attached paper:"
+    )
+```
+
+```{python}
+#| label: pricing
+#| code-fold: true
+#| code-summary: "Pricing: API costs per model (USD/1M tokens)"
+
+PRICING = {
+    # OpenAI
+    "gpt-4o": {"input": 2.50, "output": 10.00},
+    "gpt-4o-2024-11-20": {"input": 2.50, "output": 10.00},
+    "gpt-5-pro-2025-10-06": {"input": 15.00, "output": 120.00},
+    "gpt-5.2-pro-2025-12-11": {"input": 15.00, "output": 120.00},
+    # Anthropic
+    "claude-sonnet-4-20250514": {"input": 3.00, "output": 15.00},
+    "claude-opus-4-20250514": {"input": 15.00, "output": 75.00},
+    # Google
+    "gemini-2.0-flash": {"input": 0.10, "output": 0.40},
+    "gemini-2.5-pro-preview-05-06": {"input": 1.25, "output": 10.00},
+}
+
+def calculate_cost(model: str, input_tokens: int, output_tokens: int) -> float:
+    """Calculate cost in USD based on token usage."""
+    pricing = PRICING.get(model, {"input": 0, "output": 0})
+    input_cost = (input_tokens / 1_000_000) * pricing["input"]
+    output_cost = (output_tokens / 1_000_000) * pricing["output"]
+    return input_cost + output_cost
+```
+
+```{python}
+#| label: phase1-screening
+#| code-fold: true
+#| code-summary: "Phase 1: Abstract screening functions"
+
+def screen_abstract_anthropic(paper: Dict, focus_areas: str = "",
+                               model: Optional[str] = None) -> dict:
+    """Screen paper abstract using Anthropic Claude API."""
+    import anthropic
+
+    client = anthropic.Anthropic()
+    model = model or MODELS["anthropic"]
+
+    prompt_template = get_phase1_prompt(focus_areas)
+    prompt = prompt_template.replace("{title}", paper['title'])
+    prompt = prompt.replace("{authors}", paper['authors'])
+    prompt = prompt.replace("{abstract}", paper['abstract'])
+
+    response = call_with_retries(lambda: client.messages.create(
+        model=model,
+        max_tokens=1024,
+        messages=[{"role": "user", "content": prompt}],
+    ))
+
+    input_tokens = response.usage.input_tokens
+    output_tokens = response.usage.output_tokens
+
+    return {
+        "text": response.content[0].text,
+        "model": model,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": calculate_cost(model, input_tokens, output_tokens),
+    }
+
+
+def screen_abstract_openai(paper: Dict, focus_areas: str = "",
+                            model: Optional[str] = None) -> dict:
+    """Screen paper abstract using OpenAI API."""
+    from openai import OpenAI
+
+    client = OpenAI()
+    model = model or MODELS["openai"]
+
+    prompt_template = get_phase1_prompt(focus_areas)
+    prompt = prompt_template.replace("{title}", paper['title'])
+    prompt = prompt.replace("{authors}", paper['authors'])
+    prompt = prompt.replace("{abstract}", paper['abstract'])
+
+    response = call_with_retries(lambda: client.chat.completions.create(
+        model=model,
+        max_tokens=1024,
+        messages=[{"role": "user", "content": prompt}],
+    ))
+
+    input_tokens = response.usage.prompt_tokens
+    output_tokens = response.usage.completion_tokens
+
+    return {
+        "text": response.choices[0].message.content,
+        "model": model,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": calculate_cost(model, input_tokens, output_tokens),
+    }
+
+
+def screen_abstract_google(paper: Dict, focus_areas: str = "",
+                            model: Optional[str] = None) -> dict:
+    """Screen paper abstract using Google Gemini API."""
+    import google.generativeai as genai
+
+    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+    if api_key:
+        genai.configure(api_key=api_key)
+
+    model_name = model or MODELS["google"]
+
+    prompt_template = get_phase1_prompt(focus_areas)
+    prompt = prompt_template.replace("{title}", paper['title'])
+    prompt = prompt.replace("{authors}", paper['authors'])
+    prompt = prompt.replace("{abstract}", paper['abstract'])
+
+    model_obj = genai.GenerativeModel(model_name=model_name)
+    response = call_with_retries(
+        lambda: model_obj.generate_content(prompt)
+    )
+
+    input_tokens = getattr(response.usage_metadata, 'prompt_token_count', 0)
+    output_tokens = getattr(response.usage_metadata, 'candidates_token_count', 0)
+
+    return {
+        "text": response.text,
+        "model": model_name,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": calculate_cost(model_name, input_tokens, output_tokens),
+    }
+```
+
+```{python}
+#| label: phase2-screening
+#| code-fold: true
+#| code-summary: "Phase 2: Full PDF screening functions"
+
+def screen_pdf_anthropic(pdf_path: Path, focus_areas: str = "",
+                         model: Optional[str] = None) -> dict:
+    """Screen paper PDF using Anthropic Claude API."""
+    import anthropic
+
+    client = anthropic.Anthropic()
+    model = model or MODELS["anthropic"]
+    prompt = get_phase2_prompt(focus_areas)
+
+    pdf_bytes = pdf_path.read_bytes()
+    pdf_base64 = base64.standard_b64encode(pdf_bytes).decode("utf-8")
+
+    response = call_with_retries(lambda: client.messages.create(
+        model=model,
+        max_tokens=4096,
+        messages=[{
+            "role": "user",
+            "content": [
+                {
+                    "type": "document",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "application/pdf",
+                        "data": pdf_base64,
+                    },
+                },
+                {"type": "text", "text": prompt},
+            ],
+        }],
+    ))
+
+    input_tokens = response.usage.input_tokens
+    output_tokens = response.usage.output_tokens
+
+    return {
+        "text": response.content[0].text,
+        "model": model,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": calculate_cost(model, input_tokens, output_tokens),
+    }
+
+
+def screen_pdf_openai(pdf_path: Path, focus_areas: str = "",
+                      model: Optional[str] = None) -> dict:
+    """Screen paper PDF using OpenAI API."""
+    from openai import OpenAI
+
+    client = OpenAI()
+    model = model or MODELS["openai"]
+    prompt = get_phase2_prompt(focus_areas)
+
+    with open(pdf_path, "rb") as f:
+        pdf_file = call_with_retries(
+            lambda: client.files.create(file=f, purpose="assistants")
+        )
+
+    response = call_with_retries(lambda: client.responses.create(
+        model=model,
+        input=[{
+            "role": "user",
+            "content": [
+                {"type": "input_file", "file_id": pdf_file.id},
+                {"type": "input_text", "text": prompt},
+            ]
+        }],
+    ))
+
+    input_tokens = getattr(response.usage, 'input_tokens', 0)
+    output_tokens = getattr(response.usage, 'output_tokens', 0)
+
+    return {
+        "text": response.output_text,
+        "model": model,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": calculate_cost(model, input_tokens, output_tokens),
+    }
+
+
+def screen_pdf_google(pdf_path: Path, focus_areas: str = "",
+                      model: Optional[str] = None) -> dict:
+    """Screen paper PDF using Google Gemini API."""
+    import google.generativeai as genai
+
+    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+    if api_key:
+        genai.configure(api_key=api_key)
+
+    model_name = model or MODELS["google"]
+    prompt = get_phase2_prompt(focus_areas)
+
+    uploaded_file = call_with_retries(
+        lambda: genai.upload_file(pdf_path, mime_type="application/pdf")
+    )
+
+    model_obj = genai.GenerativeModel(model_name=model_name)
+    response = call_with_retries(
+        lambda: model_obj.generate_content([uploaded_file, prompt])
+    )
+
+    try:
+        genai.delete_file(uploaded_file.name)
+    except Exception:
+        pass
+
+    input_tokens = getattr(response.usage_metadata, 'prompt_token_count', 0)
+    output_tokens = getattr(response.usage_metadata, 'candidates_token_count', 0)
+
+    return {
+        "text": response.text,
+        "model": model_name,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "cost_usd": calculate_cost(model_name, input_tokens, output_tokens),
+    }
+```
+
+```{python}
+#| label: parsing
+#| code-fold: true
+#| code-summary: "Parsing: Extract structured data from LLM response"
+
+def parse_screening_result(raw_text: str) -> dict:
+    """Parse the JSON from LLM response, handling markdown code blocks."""
+    # Try to extract JSON from markdown code block
+    json_match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', raw_text, re.DOTALL)
+    if json_match:
+        json_str = json_match.group(1)
+    else:
+        # Try to find raw JSON object
+        brace_start = raw_text.find('{')
+        brace_end = raw_text.rfind('}')
+        if brace_start != -1 and brace_end != -1:
+            json_str = raw_text[brace_start:brace_end + 1]
+        else:
+            return {"parse_error": True, "raw_text": raw_text}
+
+    try:
+        return json.loads(json_str)
+    except json.JSONDecodeError as e:
+        return {"parse_error": True, "raw_text": raw_text, "error": str(e)}
+```
+
+```{python}
+#| label: execute-phase1
+#| code-fold: true
+#| code-summary: "Execute: Phase 1 - Screen all abstracts"
+
+# Get parameters from R
+nep_category = r.nep_category
+phase1_threshold = int(r.phase1_threshold)
+phase2_threshold = int(r.phase2_threshold)
+provider = r.params["provider"]
+model_param = r.params.get("model", "")
+focus_areas = r.params.get("focus_areas", "")
+
+model = model_param if model_param else MODELS[provider]
+
+# Provider-specific functions
+abstract_screeners = {
+    "openai": screen_abstract_openai,
+    "anthropic": screen_abstract_anthropic,
+    "google": screen_abstract_google,
+}
+
+pdf_screeners = {
+    "openai": screen_pdf_openai,
+    "anthropic": screen_pdf_anthropic,
+    "google": screen_pdf_google,
+}
+
+screen_abstract_fn = abstract_screeners[provider]
+screen_pdf_fn = pdf_screeners[provider]
+
+# Fetch RSS feed
+print("=" * 60)
+print("PHASE 1: Abstract Screening")
+print("=" * 60)
+print()
+
+papers = fetch_nep_feed(nep_category)
+print()
+
+phase1_results = []
+phase1_cost = 0.0
+
+for i, paper in enumerate(papers, 1):
+    print(f"[{i}/{len(papers)}] {paper['title'][:60]}...")
+
+    try:
+        raw_result = screen_abstract_fn(paper, focus_areas=focus_areas, model=model)
+        parsed = parse_screening_result(raw_result["text"])
+
+        result = {
+            "paper": paper,
+            "parsed": parsed,
+            "model": raw_result["model"],
+            "input_tokens": raw_result["input_tokens"],
+            "output_tokens": raw_result["output_tokens"],
+            "cost_usd": raw_result["cost_usd"],
+            "raw_text": raw_result["text"],
+        }
+
+        phase1_cost += raw_result["cost_usd"]
+
+        if not parsed.get("parse_error"):
+            score = parsed.get("overall_score", 0)
+            proceed = score >= phase1_threshold
+            print(f"    Score: {score}, Proceed to Phase 2: {proceed}")
+        else:
+            print(f"    Warning: Could not parse output")
+
+        phase1_results.append(result)
+
+    except Exception as e:
+        print(f"    ERROR: {e}")
+        phase1_results.append({
+            "paper": paper,
+            "error": str(e),
+        })
+
+print()
+print(f"Phase 1 complete. Cost: ${phase1_cost:.4f}")
+print()
+```
+
+```{python}
+#| label: execute-phase2
+#| code-fold: true
+#| code-summary: "Execute: Phase 2 - Download PDFs and full screening"
+
+# Filter papers that passed Phase 1
+papers_for_phase2 = []
+for result in phase1_results:
+    if result.get("error"):
+        continue
+    parsed = result.get("parsed", {})
+    if parsed.get("parse_error"):
+        continue
+    score = parsed.get("overall_score", 0)
+    if score >= phase1_threshold:
+        papers_for_phase2.append(result)
+
+print("=" * 60)
+print(f"PHASE 2: Full PDF Screening ({len(papers_for_phase2)} papers)")
+print("=" * 60)
+print()
+
+if not papers_for_phase2:
+    print("No papers passed Phase 1 threshold. Skipping Phase 2.")
+    phase2_results = []
+    phase2_cost = 0.0
+else:
+    # Create temp directory for PDFs
+    pdf_dir = Path(tempfile.mkdtemp(prefix="nep_papers_"))
+    print(f"Downloading PDFs to: {pdf_dir}")
+    print()
+
+    phase2_results = []
+    phase2_cost = 0.0
+
+    for i, p1_result in enumerate(papers_for_phase2, 1):
+        paper = p1_result["paper"]
+        print(f"[{i}/{len(papers_for_phase2)}] {paper['title'][:50]}...")
+
+        # Download PDF
+        pdf_path = download_paper_pdf(paper["link"], pdf_dir)
+
+        if pdf_path is None:
+            print(f"    Skipping: PDF not available")
+            phase2_results.append({
+                "paper": paper,
+                "phase1_result": p1_result,
+                "pdf_error": "PDF not available",
+            })
+            continue
+
+        # Screen the PDF
+        try:
+            raw_result = screen_pdf_fn(pdf_path, focus_areas=focus_areas, model=model)
+            parsed = parse_screening_result(raw_result["text"])
+
+            result = {
+                "paper": paper,
+                "phase1_result": p1_result,
+                "pdf_path": str(pdf_path),
+                "parsed": parsed,
+                "model": raw_result["model"],
+                "input_tokens": raw_result["input_tokens"],
+                "output_tokens": raw_result["output_tokens"],
+                "cost_usd": raw_result["cost_usd"],
+                "raw_text": raw_result["text"],
+            }
+
+            phase2_cost += raw_result["cost_usd"]
+
+            if not parsed.get("parse_error"):
+                score = parsed.get("overall_relevance", 0)
+                rec = parsed.get("recommendation", "?")
+                print(f"    Score: {score}, Recommendation: {rec}")
+            else:
+                print(f"    Warning: Could not parse output")
+
+            phase2_results.append(result)
+
+        except Exception as e:
+            print(f"    ERROR: {e}")
+            phase2_results.append({
+                "paper": paper,
+                "phase1_result": p1_result,
+                "pdf_path": str(pdf_path),
+                "error": str(e),
+            })
+
+    print()
+    print(f"Phase 2 complete. Cost: ${phase2_cost:.4f}")
+
+total_cost = phase1_cost + phase2_cost
+print()
+print(f"Total cost: ${total_cost:.4f}")
+```
+
+```{python}
+#| label: save-results
+#| code-fold: true
+#| code-summary: "Save: Write results to screening_results/"
+
+output_dir = Path("screening_results")
+output_dir.mkdir(exist_ok=True)
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+output_file = output_dir / f"nep_{nep_category}_{timestamp}.json"
+
+# Prepare serializable results
+def make_serializable(obj):
+    """Convert result objects to JSON-serializable format."""
+    if isinstance(obj, dict):
+        return {k: make_serializable(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [make_serializable(v) for v in obj]
+    elif isinstance(obj, Path):
+        return str(obj)
+    else:
+        return obj
+
+output_data = {
+    "timestamp": datetime.now().isoformat(),
+    "nep_category": nep_category,
+    "feed_url": f"https://nep.repec.org/rss/nep-{nep_category}.rss.xml",
+    "provider": provider,
+    "model": model,
+    "focus_areas": focus_areas,
+    "phase1_threshold": phase1_threshold,
+    "phase2_threshold": phase2_threshold,
+    "total_papers_in_feed": len(papers),
+    "papers_passed_phase1": len(papers_for_phase2),
+    "papers_screened_phase2": len([r for r in phase2_results if not r.get("pdf_error") and not r.get("error")]),
+    "phase1_cost_usd": phase1_cost,
+    "phase2_cost_usd": phase2_cost,
+    "total_cost_usd": total_cost,
+    "phase1_results": make_serializable(phase1_results),
+    "phase2_results": make_serializable(phase2_results),
+}
+
+output_file.write_text(json.dumps(output_data, indent=2, default=str))
+print(f"Results saved to: {output_file}")
+```
+
+## Phase 1 Results: Abstract Screening
+
+```{r}
+#| label: phase1-summary
+#| results: asis
+#| echo: false
+
+phase1_results <- py$phase1_results
+phase1_threshold <- as.numeric(params$phase1_threshold)
+
+# Count results
+n_passed <- 0
+n_failed <- 0
+n_error <- 0
+
+for (r in phase1_results) {
+  if (!is.null(r$error)) {
+    n_error <- n_error + 1
+  } else if (!is.null(r$parsed) && !isTRUE(r$parsed$parse_error)) {
+    score <- r$parsed$overall_score
+    if (!is.null(score) && score >= phase1_threshold) {
+      n_passed <- n_passed + 1
+    } else {
+      n_failed <- n_failed + 1
+    }
+  } else {
+    n_error <- n_error + 1
+  }
+}
+
+cat("### Summary\n\n")
+cat(sprintf("| Status | Count |\n"))
+cat(sprintf("|--------|-------|\n"))
+cat(sprintf("| **Passed** (≥%d) | %d |\n", phase1_threshold, n_passed))
+cat(sprintf("| **Below threshold** | %d |\n", n_failed))
+if (n_error > 0) cat(sprintf("| *Errors* | %d |\n", n_error))
+cat(sprintf("| **Total in feed** | %d |\n", length(phase1_results)))
+cat("\n")
+cat(sprintf("**Phase 1 cost:** $%.4f\n\n", py$phase1_cost))
+```
+
+### Papers Proceeding to Phase 2
+
+```{r}
+#| label: phase1-passed
+#| results: asis
+#| echo: false
+
+phase1_threshold <- as.numeric(params$phase1_threshold)
+
+passed <- list()
+for (r in py$phase1_results) {
+  if (is.null(r$error) && !is.null(r$parsed) && !isTRUE(r$parsed$parse_error)) {
+    score <- r$parsed$overall_score
+    if (!is.null(score) && score >= phase1_threshold) {
+      passed <- c(passed, list(r))
+    }
+  }
+}
+
+if (length(passed) == 0) {
+  cat("*No papers scored above the Phase 1 threshold.*\n\n")
+} else {
+  # Sort by score descending
+  scores <- sapply(passed, function(x) x$parsed$overall_score)
+  passed <- passed[order(scores, decreasing = TRUE)]
+
+  cat("| Score | Title | Reasoning |\n")
+  cat("|-------|-------|----------|\n")
+
+  for (r in passed) {
+    p <- r$parsed
+    title_short <- substr(p$title, 1, 50)
+    if (nchar(p$title) > 50) title_short <- paste0(title_short, "...")
+    reasoning <- substr(p$brief_reasoning, 1, 60)
+    if (nchar(p$brief_reasoning) > 60) reasoning <- paste0(reasoning, "...")
+    cat(sprintf("| %d | %s | %s |\n", p$overall_score, title_short, reasoning))
+  }
+  cat("\n")
+}
+```
+
+<details>
+<summary>All Phase 1 Results (click to expand)</summary>
+
+```{r}
+#| label: phase1-all
+#| results: asis
+#| echo: false
+
+for (r in py$phase1_results) {
+  paper <- r$paper
+  cat(sprintf("#### %s\n\n", paper$title))
+  cat(sprintf("**Authors:** %s  \n", paper$authors))
+  cat(sprintf("**Link:** [%s](%s)\n\n", paper$link, paper$link))
+
+  if (!is.null(r$error)) {
+    cat(sprintf("**Error:** %s\n\n", r$error))
+  } else if (isTRUE(r$parsed$parse_error)) {
+    cat("**Warning:** Could not parse output\n\n")
+  } else {
+    p <- r$parsed
+    cat(sprintf("- **Overall Score:** %d/100\n", p$overall_score))
+    cat(sprintf("- **Topic Relevance:** %d\n", p$topic_relevance))
+    cat(sprintf("- **Methodological Substance:** %d\n", p$methodological_substance))
+    cat(sprintf("- **Potential Impact:** %d\n", p$potential_impact))
+    cat(sprintf("- **Reasoning:** %s\n", p$brief_reasoning))
+  }
+  cat("\n---\n\n")
+}
+```
+
+</details>
+
+## Phase 2 Results: Full PDF Screening
+
+```{r}
+#| label: phase2-summary
+#| results: asis
+#| echo: false
+
+phase2_results <- py$phase2_results
+phase2_threshold <- as.numeric(params$phase2_threshold)
+
+if (length(phase2_results) == 0) {
+  cat("*No papers were screened in Phase 2.*\n\n")
+} else {
+  # Count by recommendation
+  n_evaluate <- 0
+  n_maybe <- 0
+  n_skip <- 0
+  n_error <- 0
+  n_no_pdf <- 0
+
+  for (r in phase2_results) {
+    if (!is.null(r$pdf_error)) {
+      n_no_pdf <- n_no_pdf + 1
+    } else if (!is.null(r$error)) {
+      n_error <- n_error + 1
+    } else if (!is.null(r$parsed$recommendation)) {
+      rec <- r$parsed$recommendation
+      if (rec == "EVALUATE") n_evaluate <- n_evaluate + 1
+      else if (rec == "MAYBE") n_maybe <- n_maybe + 1
+      else n_skip <- n_skip + 1
+    }
+  }
+
+  cat("### Summary\n\n")
+  cat(sprintf("| Recommendation | Count |\n"))
+  cat(sprintf("|----------------|-------|\n"))
+  cat(sprintf("| **EVALUATE** | %d |\n", n_evaluate))
+  cat(sprintf("| **MAYBE** | %d |\n", n_maybe))
+  cat(sprintf("| **SKIP** | %d |\n", n_skip))
+  if (n_no_pdf > 0) cat(sprintf("| *PDF unavailable* | %d |\n", n_no_pdf))
+  if (n_error > 0) cat(sprintf("| *Errors* | %d |\n", n_error))
+  cat(sprintf("| **Total** | %d |\n", length(phase2_results)))
+  cat("\n")
+  cat(sprintf("**Phase 2 cost:** $%.4f\n\n", py$phase2_cost))
+}
+```
+
+### Papers Flagged for Human Review
+
+```{r}
+#| label: phase2-flagged
+#| results: asis
+#| echo: false
+
+phase2_threshold <- as.numeric(params$phase2_threshold)
+
+flagged <- list()
+for (r in py$phase2_results) {
+  if (is.null(r$error) && is.null(r$pdf_error) && !is.null(r$parsed) && !isTRUE(r$parsed$parse_error)) {
+    score <- r$parsed$overall_relevance
+    if (!is.null(score) && score >= phase2_threshold) {
+      flagged <- c(flagged, list(r))
+    }
+  }
+}
+
+if (length(flagged) == 0) {
+  cat("*No papers scored above the Phase 2 threshold.*\n\n")
+} else {
+  # Sort by score descending
+  scores <- sapply(flagged, function(x) x$parsed$overall_relevance)
+  flagged <- flagged[order(scores, decreasing = TRUE)]
+
+  for (r in flagged) {
+    p <- r$parsed
+    paper <- r$paper
+    cat(sprintf("#### %s\n\n", p$title))
+    cat(sprintf("**Authors:** %s  \n", p$authors))
+    cat(sprintf("**Link:** [RePec](%s)  \n", paper$link))
+    cat(sprintf("**Overall Score:** %d/100  \n", p$overall_relevance))
+    cat(sprintf("**Recommendation:** %s\n\n", p$recommendation))
+
+    cat("**Summary:**\n")
+    cat(sprintf("> %s\n\n", p$summary))
+
+    cat("**Scores:**\n\n")
+    cat("| Criterion | Score |\n")
+    cat("|-----------|-------|\n")
+    cat(sprintf("| Global Relevance | %d |\n", p$scores$global_relevance))
+    cat(sprintf("| Methodological Interest | %d |\n", p$scores$methodological_interest))
+    cat(sprintf("| Evaluation Value-Add | %d |\n", p$scores$evaluation_value_add))
+    cat(sprintf("| Open Science | %d |\n", p$scores$open_science))
+    cat("\n")
+
+    cat("**Key Claims:**\n\n")
+    for (claim in p$key_claims) {
+      cat(sprintf("- %s\n", claim))
+    }
+    cat("\n")
+
+    cat("**Methods:** ", p$methods_summary, "\n\n")
+    cat("**Reasoning:** ", p$reasoning, "\n\n")
+
+    if (length(p$red_flags) > 0 && p$red_flags[[1]] != "") {
+      cat("**Red Flags:**\n\n")
+      for (flag in p$red_flags) {
+        cat(sprintf("- %s\n", flag))
+      }
+      cat("\n")
+    }
+
+    cat("---\n\n")
+  }
+}
+```
+
+<details>
+<summary>All Phase 2 Results (click to expand)</summary>
+
+```{r}
+#| label: phase2-all
+#| results: asis
+#| echo: false
+
+for (r in py$phase2_results) {
+  paper <- r$paper
+  cat(sprintf("#### %s\n\n", paper$title))
+
+  if (!is.null(r$pdf_error)) {
+    cat(sprintf("**PDF Error:** %s\n\n", r$pdf_error))
+  } else if (!is.null(r$error)) {
+    cat(sprintf("**Error:** %s\n\n", r$error))
+  } else if (isTRUE(r$parsed$parse_error)) {
+    cat("**Warning:** Could not parse output\n\n")
+  } else {
+    p <- r$parsed
+    cat(sprintf("- **Score:** %d/100\n", p$overall_relevance))
+    cat(sprintf("- **Recommendation:** %s\n", p$recommendation))
+    cat(sprintf("- **Summary:** %s\n", p$summary))
+    cat(sprintf("- **Reasoning:** %s\n", p$reasoning))
+    cat(sprintf("- **Tokens:** %s in / %s out\n",
+                format(r$input_tokens, big.mark=","),
+                format(r$output_tokens, big.mark=",")))
+    cat(sprintf("- **Cost:** $%.4f\n", r$cost_usd))
+  }
+  cat("\n---\n\n")
+}
+```
+
+</details>
+
+## Usage & Cost Summary
+
+```{r}
+#| label: usage-table
+#| echo: false
+
+# Phase 1 totals
+p1_input <- sum(sapply(py$phase1_results, function(x) if(is.null(x$input_tokens)) 0 else x$input_tokens))
+p1_output <- sum(sapply(py$phase1_results, function(x) if(is.null(x$output_tokens)) 0 else x$output_tokens))
+
+# Phase 2 totals
+p2_input <- sum(sapply(py$phase2_results, function(x) if(is.null(x$input_tokens)) 0 else x$input_tokens))
+p2_output <- sum(sapply(py$phase2_results, function(x) if(is.null(x$output_tokens)) 0 else x$output_tokens))
+
+usage_df <- data.frame(
+  Metric = c(
+    "NEP Category",
+    "Model",
+    "Phase 1: Papers Screened",
+    "Phase 1: Input Tokens",
+    "Phase 1: Output Tokens",
+    "Phase 1: Cost",
+    "Phase 2: Papers Screened",
+    "Phase 2: Input Tokens",
+    "Phase 2: Output Tokens",
+    "Phase 2: Cost",
+    "Total Cost"
+  ),
+  Value = c(
+    py$nep_category,
+    py$model,
+    length(py$phase1_results),
+    format(p1_input, big.mark = ","),
+    format(p1_output, big.mark = ","),
+    sprintf("$%.4f", py$phase1_cost),
+    length(py$phase2_results),
+    format(p2_input, big.mark = ","),
+    format(p2_output, big.mark = ","),
+    sprintf("$%.4f", py$phase2_cost),
+    sprintf("$%.4f", py$total_cost)
+  )
+)
+
+knitr::kable(usage_df, col.names = c("Metric", "Value"), align = c("l", "r"))
+```
+
+---
+
+*Screening completed using `r params$provider` (`r py$model`) on `r Sys.time()`*
+
+**Results saved to:** `r paste0("screening_results/nep_", params$nep_category, "_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".json")`
+
+## Next Steps
+
+Papers flagged with **EVALUATE** or **MAYBE** should be reviewed by a human assessor who can:
+
+1. Verify the LLM's assessment against Unjournal prioritization criteria
+2. Check for any issues the LLM may have missed
+3. Make a final recommendation on whether to commission evaluation
+
+To submit a paper for Unjournal evaluation, use the [submission form](https://unjournal.org).
