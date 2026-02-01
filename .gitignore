@@ -1,0 +1,26 @@
+# Generated outputs
+paper_screener.html
+paper_screener_files/
+screening_results/
+
+# API keys
+.Renviron
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.temp
