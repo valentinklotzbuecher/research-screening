@@ -1,7 +1,6 @@
 # Generated outputs
 paper_screener.html
 paper_screener_files/
-screening_results/
 
 # API keys
 .Renviron

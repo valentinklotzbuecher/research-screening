@@ -1,0 +1,966 @@
+{
+  "timestamp": "2026-02-01T14:24:06.908487",
+  "nep_category": "ain",
+  "feed_url": "https://nep.repec.org/rss/nep-ain.rss.xml",
+  "provider": "anthropic",
+  "model": "claude-sonnet-4-20250514",
+  "focus_areas": "global priorities, development economics, impact evaluation, animal welfare, existential risk",
+  "phase1_threshold": 50,
+  "phase2_threshold": 60,
+  "total_papers_in_feed": 21,
+  "papers_passed_phase1": 13,
+  "papers_screened_phase2": 0,
+  "phase1_cost_usd": 0.08725200000000001,
+  "phase2_cost_usd": 0.0,
+  "total_cost_usd": 0.08725200000000001,
+  "phase1_results": [
+    {
+      "paper": {
+        "title": "When Algorithms Rate Performance: Do Large Language Models Replicate Human Evaluation Biases?",
+        "authors": "Dirk Sliwka",
+        "abstract": "A large body of research across management, psychology, accounting, and economics shows that subjective performance evaluations are systematically biased: ratings cluster near the midpoint of scales and are often excessively lenient. As organizations increasingly adopt large language models (LLMs) for evaluative tasks, little is known about how these systems perform when assessing human performance. We document that, in the absence of clear objective standards and when individuals are rated independently, LLMs reproduce the familiar patterns of human raters. However, LLMs generate greater dispersion and accuracy when evaluating multiple individuals simultaneously. With noisy but objective performance signals, LLMs provide substantially more accurate evaluations than human raters, as they (i) are less subject to biases arising from concern for the evaluated employee and (ii) make fewer mistakes in information processing closely approximating rational Bayesian benchmarks.",
+        "link": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:384&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:384&r=&r=ain"
+      },
+      "parsed": {
+        "title": "When Algorithms Rate Performance: Do Large Language Models Replicate Human Evaluation Biases?",
+        "authors": "Dirk Sliwka",
+        "topic_relevance": 25,
+        "methodological_substance": 70,
+        "potential_impact": 35,
+        "overall_score": 43,
+        "brief_reasoning": "While methodologically interesting in comparing LLM vs human evaluation biases, this focuses narrowly on workplace performance evaluation rather than global priorities areas. Limited relevance to development economics, global welfare, or other Unjournal focus areas.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 556,
+      "output_tokens": 161,
+      "cost_usd": 0.004083,
+      "raw_text": "```json\n{\n  \"title\": \"When Algorithms Rate Performance: Do Large Language Models Replicate Human Evaluation Biases?\",\n  \"authors\": \"Dirk Sliwka\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 35,\n  \"overall_score\": 43,\n  \"brief_reasoning\": \"While methodologically interesting in comparing LLM vs human evaluation biases, this focuses narrowly on workplace performance evaluation rather than global priorities areas. Limited relevance to development economics, global welfare, or other Unjournal focus areas.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Evaluating Behavioral Interventions at Scale with AI",
+        "authors": "Christopher Roth",
+        "abstract": "We test the effectiveness of different AI-delivered conversation protocols to increase people\u2019 motivation for change. In a large-scale experiment with 2, 719 social media users, we randomly assign participants to a control conversation or one of three treatment arms: two Motivational Interviewing protocols promoting self-persuasion (change focus or decisional balance) and a direct persuasion protocol providing unsolicited advice and information. All conversations are led by an AI interviewer, enabling standardized delivery of each protocol at scale. Our results show that all three interventions significantly increase motivation for change and the perceived costs of social media use, with change-focused self-persuasion yielding the largest effects. These effects persist and translate into self-reported reductions in social media use more than two weeks after the intervention. Our findings illustrate how AI-led conversations can serve as a scalable platform both for delivering behavioral interventions and for testing what makes them effective by systematically varying how conversations are conducted.",
+        "link": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:385&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:385&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Evaluating Behavioral Interventions at Scale with AI",
+        "authors": "Christopher Roth",
+        "topic_relevance": 70,
+        "methodological_substance": 85,
+        "potential_impact": 75,
+        "overall_score": 77,
+        "brief_reasoning": "Strong RCT methodology testing AI-delivered behavioral interventions with policy-relevant implications for digital wellbeing and scalable intervention design. While not directly addressing core Unjournal priorities, the methodological innovation and potential for broader application to global development contexts makes it worth reviewing.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 568,
+      "output_tokens": 159,
+      "cost_usd": 0.004089000000000001,
+      "raw_text": "```json\n{\n  \"title\": \"Evaluating Behavioral Interventions at Scale with AI\",\n  \"authors\": \"Christopher Roth\",\n  \"topic_relevance\": 70,\n  \"methodological_substance\": 85,\n  \"potential_impact\": 75,\n  \"overall_score\": 77,\n  \"brief_reasoning\": \"Strong RCT methodology testing AI-delivered behavioral interventions with policy-relevant implications for digital wellbeing and scalable intervention design. While not directly addressing core Unjournal priorities, the methodological innovation and potential for broader application to global development contexts makes it worth reviewing.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Antisocial behavior towards large language model users: experimental evidence",
+        "authors": "Cassandra Gr\\\"utzner",
+        "abstract": "The rapid spread of large language models (LLMs) has raised concerns about the social reactions they provoke. Prior research documents negative attitudes toward AI users, but it remains unclear whether such disapproval translates into costly action. We address this question in a two-phase online experiment (N = 491 Phase II participants; Phase I provided targets) where participants could spend part of their own endowment to reduce the earnings of peers who had previously completed a real-effort task with or without LLM support. On average, participants destroyed 36% of the earnings of those who relied exclusively on the model, with punishment increasing monotonically with actual LLM use. Disclosure about LLM use created a credibility gap: self-reported null use was punished more harshly than actual null use, suggesting that declarations of \"no use\" are treated with suspicion. Conversely, at high levels of use, actual reliance on the model was punished more strongly than self-reported reliance. Taken together, these findings provide the first behavioral evidence that the efficiency gains of LLMs come at the cost of social sanctions.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.09772&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.09772&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Antisocial behavior towards large language model users: experimental evidence",
+        "authors": "Cassandra Gr\u00fctzner",
+        "topic_relevance": 75,
+        "methodological_substance": 80,
+        "potential_impact": 70,
+        "overall_score": 75,
+        "brief_reasoning": "This experimental study addresses important questions about social acceptance of AI technology adoption, which has significant implications for AI governance and technology policy. The rigorous experimental design and novel behavioral findings on LLM adoption barriers could inform technology deployment decisions.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 607,
+      "output_tokens": 152,
+      "cost_usd": 0.0041010000000000005,
+      "raw_text": "```json\n{\n  \"title\": \"Antisocial behavior towards large language model users: experimental evidence\",\n  \"authors\": \"Cassandra Gr\u00fctzner\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 80,\n  \"potential_impact\": 70,\n  \"overall_score\": 75,\n  \"brief_reasoning\": \"This experimental study addresses important questions about social acceptance of AI technology adoption, which has significant implications for AI governance and technology policy. The rigorous experimental design and novel behavioral findings on LLM adoption barriers could inform technology deployment decisions.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "LLM Collusion",
+        "authors": "Ming Hu",
+        "abstract": "We study how delegating pricing to large language models (LLMs) can facilitate collusion in a duopoly when both sellers rely on the same pre-trained model. The LLM is characterized by (i) a propensity parameter capturing its internal bias toward high-price recommendations and (ii) an output-fidelity parameter measuring how tightly outputs track that bias; the propensity evolves through retraining. We show that configuring LLMs for robustness and reproducibility can induce collusion via a phase transition: there exists a critical output-fidelity threshold that pins down long-run behavior. Below it, competitive pricing is the unique long-run outcome. Above it, the system is bistable, with competitive and collusive pricing both locally stable and the realized outcome determined by the model's initial preference. The collusive regime resembles tacit collusion: prices are elevated on average, yet occasional low-price recommendations provide plausible deniability. With perfect fidelity, full collusion emerges from any interior initial condition. For finite training batches of size $b$, infrequent retraining (driven by computational costs) further amplifies collusion: conditional on starting in the collusive basin, the probability of collusion approaches one as $b$ grows, since larger batches dampen stochastic fluctuations that might otherwise tip the system toward competition. The indeterminacy region shrinks at rate $O(1/\\sqrt{b})$.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.01279&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.01279&r=&r=ain"
+      },
+      "parsed": {
+        "title": "LLM Collusion",
+        "authors": "Ming Hu",
+        "topic_relevance": 85,
+        "methodological_substance": 75,
+        "potential_impact": 90,
+        "overall_score": 83,
+        "brief_reasoning": "This paper addresses a critical policy issue - algorithmic collusion via LLMs - with clear implications for competition policy and market regulation as AI adoption accelerates. The theoretical framework appears rigorous and the findings on how LLM configuration affects collusive outcomes could inform important regulatory decisions.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 674,
+      "output_tokens": 152,
+      "cost_usd": 0.004302,
+      "raw_text": "```json\n{\n  \"title\": \"LLM Collusion\",\n  \"authors\": \"Ming Hu\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 75,\n  \"potential_impact\": 90,\n  \"overall_score\": 83,\n  \"brief_reasoning\": \"This paper addresses a critical policy issue - algorithmic collusion via LLMs - with clear implications for competition policy and market regulation as AI adoption accelerates. The theoretical framework appears rigorous and the findings on how LLM configuration affects collusive outcomes could inform important regulatory decisions.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Sell Data to AI Algorithms Without Revealing It: Secure Data Valuation and Sharing via Homomorphic Encryption",
+        "authors": "Zheng",
+        "abstract": "The rapid expansion of Artificial Intelligence is hindered by a fundamental friction in data markets: the value-privacy dilemma, where buyers cannot verify a dataset's utility without inspection, yet inspection may expose the data (Arrow's Information Paradox). We resolve this challenge by introducing the Trustworthy Influence Protocol (TIP), a privacy-preserving framework that enables prospective buyers to quantify the utility of external data without ever decrypting the raw assets. By integrating Homomorphic Encryption with gradient-based influence functions, our approach allows for the precise, blinded scoring of data points against a buyer's specific AI model. To ensure scalability for Large Language Models (LLMs), we employ low-rank gradient projections that reduce computational overhead while maintaining near-perfect fidelity to plaintext baselines, as demonstrated across BERT and GPT-2 architectures. Empirical simulations in healthcare and generative AI domains validate the framework's economic potential: we show that encrypted valuation signals achieve a high correlation with realized clinical utility and reveal a heavy-tailed distribution of data value in pre-training corpora where a minority of texts drive capability while the majority degrades it. These findings challenge prevailing flat-rate compensation models and offer a scalable technical foundation for a meritocratic, secure data economy.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06033&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06033&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Sell Data to AI Algorithms Without Revealing It: Secure Data Valuation and Sharing via Homomorphic Encryption",
+        "authors": "Zheng",
+        "topic_relevance": 30,
+        "methodological_substance": 75,
+        "potential_impact": 25,
+        "overall_score": 43,
+        "brief_reasoning": "While technically sophisticated with rigorous cryptographic methods, this computer science paper focuses narrowly on data privacy in AI markets rather than addressing global priorities, development economics, or welfare outcomes that align with Unjournal's mission.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 657,
+      "output_tokens": 162,
+      "cost_usd": 0.004401,
+      "raw_text": "```json\n{\n  \"title\": \"Sell Data to AI Algorithms Without Revealing It: Secure Data Valuation and Sharing via Homomorphic Encryption\",\n  \"authors\": \"Zheng\",\n  \"topic_relevance\": 30,\n  \"methodological_substance\": 75,\n  \"potential_impact\": 25,\n  \"overall_score\": 43,\n  \"brief_reasoning\": \"While technically sophisticated with rigorous cryptographic methods, this computer science paper focuses narrowly on data privacy in AI markets rather than addressing global priorities, development economics, or welfare outcomes that align with Unjournal's mission.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Inflation Attitudes of Large Language Models",
+        "authors": "Andreas Joseph",
+        "abstract": "This paper investigates the ability of Large Language Models (LLMs), specifically GPT-3.5-turbo (GPT), to form inflation perceptions and expectations based on macroeconomic price signals. We compare the LLM's output to household survey data and official statistics, mimicking the information set and demographic characteristics of the Bank of England's Inflation Attitudes Survey (IAS). Our quasi-experimental design exploits the timing of GPT's training cut-off in September 2021 which means it has no knowledge of the subsequent UK inflation surge. We find that GPT tracks aggregate survey projections and official statistics at short horizons. At a disaggregated level, GPT replicates key empirical regularities of households' inflation perceptions, particularly for income, housing tenure, and social class. A novel Shapley value decomposition of LLM outputs suited for the synthetic survey setting provides well-defined insights into the drivers of model outputs linked to prompt content. We find that GPT demonstrates a heightened sensitivity to food inflation information similar to that of human respondents. However, we also find that it lacks a consistent model of consumer price inflation. More generally, our approach could be used to evaluate the behaviour of LLMs for use in the social sciences, to compare different models, or to assist in survey design.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.14306&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.14306&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Inflation Attitudes of Large Language Models",
+        "authors": "Andreas Joseph",
+        "topic_relevance": 25,
+        "methodological_substance": 70,
+        "potential_impact": 30,
+        "overall_score": 42,
+        "brief_reasoning": "While methodologically interesting in comparing LLM outputs to survey data, this focuses on technical AI behavior rather than global priorities or welfare outcomes. The research doesn't address development economics, animal welfare, existential risk, or other core Unjournal focus areas.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 638,
+      "output_tokens": 149,
+      "cost_usd": 0.004149,
+      "raw_text": "```json\n{\n  \"title\": \"Inflation Attitudes of Large Language Models\",\n  \"authors\": \"Andreas Joseph\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 30,\n  \"overall_score\": 42,\n  \"brief_reasoning\": \"While methodologically interesting in comparing LLM outputs to survey data, this focuses on technical AI behavior rather than global priorities or welfare outcomes. The research doesn't address development economics, animal welfare, existential risk, or other core Unjournal focus areas.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "When Medical AI Explanations Help and When They Harm",
+        "authors": "Lian Xue",
+        "abstract": "We document a fundamental paradox in AI transparency: explanations improve decisions when algorithms are correct but systematically worsen them when algorithms err. In an experiment with 257 medical students making 3, 855 diagnostic decisions, we find explanations increase accuracy by 6.3 percentage points when AI is correct (73% of cases) but decrease it by 4.9 points when incorrect (27% of cases). This asymmetry arises because modern AI systems generate equally persuasive explanations regardless of recommendation quality-physicians cannot distinguish helpful from misleading guidance. We show physicians treat explained AI as 15.2 percentage points more accurate than reality, with over-reliance persisting even for erroneous recommendations. Competent physicians with appropriate uncertainty suffer most from the AI transparency paradox (-12.4pp when AI errs), while overconfident novices benefit most (+9.9pp net). Welfare analysis reveals that selective transparency generates \\$2.59 billion in annual healthcare value, 43% more than the \\$1.82 billion from mandated universal transparency.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.08424&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.08424&r=&r=ain"
+      },
+      "parsed": {
+        "title": "When Medical AI Explanations Help and When They Harm",
+        "authors": "Lian Xue",
+        "topic_relevance": 85,
+        "methodological_substance": 90,
+        "potential_impact": 95,
+        "overall_score": 90,
+        "brief_reasoning": "This paper addresses a critical global health priority with rigorous experimental design and significant welfare implications. The findings on AI transparency paradoxes could inform major healthcare AI deployment decisions worldwide.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 596,
+      "output_tokens": 139,
+      "cost_usd": 0.0038729999999999997,
+      "raw_text": "```json\n{\n  \"title\": \"When Medical AI Explanations Help and When They Harm\",\n  \"authors\": \"Lian Xue\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 90,\n  \"potential_impact\": 95,\n  \"overall_score\": 90,\n  \"brief_reasoning\": \"This paper addresses a critical global health priority with rigorous experimental design and significant welfare implications. The findings on AI transparency paradoxes could inform major healthcare AI deployment decisions worldwide.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Emerging Trends in Tax Fraud Detection Using Artificial Intelligence-Based Technologies",
+        "authors": "Rida Belahouaoui",
+        "abstract": "This study examines the role of artificial intelligence (AI) tools in enhancing tax fraud detection within the ambit of the OECD Tax Administration 3.0, focusing on how these technologies streamline the detection process through a new \"Adaptive AI Tax Oversight\" (AATO) framework. Through a textometric systematic review covering the period from 2014 to 2024, we examine the integration of AI in tax fraud detection. The methodology emphasizes the evaluation of AI's predictive, analytical, and procedural benefits in identifying and combating tax fraud. The research underscores AI's significant impact on increasing detection accuracy, predictive capabilities, and operational efficiency in tax administrations. Key findings reveal the ways by which the development and application of the AATO framework improves the tax fraud detection process, and the implications offer a roadmap for global tax authorities to utilize AI in bolstering detection efforts, potentially lowering compliance expenses and improving regulatory frameworks.",
+        "link": "https://d.repec.org/n?u=RePEc:tul:wpaper:2511&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:tul:wpaper:2511&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Emerging Trends in Tax Fraud Detection Using Artificial Intelligence-Based Technologies",
+        "authors": "Rida Belahouaoui",
+        "topic_relevance": 25,
+        "methodological_substance": 30,
+        "potential_impact": 35,
+        "overall_score": 30,
+        "brief_reasoning": "While tax fraud detection has some policy relevance, this paper focuses on technical implementation rather than welfare outcomes or global priorities. The textometric review methodology appears limited for rigorous causal inference.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 573,
+      "output_tokens": 149,
+      "cost_usd": 0.003954,
+      "raw_text": "```json\n{\n  \"title\": \"Emerging Trends in Tax Fraud Detection Using Artificial Intelligence-Based Technologies\",\n  \"authors\": \"Rida Belahouaoui\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 30,\n  \"potential_impact\": 35,\n  \"overall_score\": 30,\n  \"brief_reasoning\": \"While tax fraud detection has some policy relevance, this paper focuses on technical implementation rather than welfare outcomes or global priorities. The textometric review methodology appears limited for rigorous causal inference.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand",
+        "authors": "Yixin Sun",
+        "abstract": "One of the promising opportunities offered by AI to support the decarbonization of electricity grids is to align demand with low-carbon supply. We evaluated the effects of one of the world\u2019s largest AI managed EV charging tariffs (a retail electricity pricing plan) using a large-scale natural field experiment. The tariff dynamically controlled vehicle charging to follow real-time wholesale electricity prices and coordinate and optimize charging for the grid and the consumer through AI. We randomized financial incentives to encourage enrollment onto the tariff. Over more than a year, we found that the tariff led to a 42% reduction in household electricity demand during peak hours, with 100% of this demand shifted to lower-cost and lower-carbon-intensity periods. The tariff generated substantial consumer savings, while demonstrating potential to lower producer costs, energy system costs, and carbon emissions through significant load shifting. Overrides of the AI algorithm were low, suggesting that this tariff was likely more efficient than a real-time-pricing tariff without AI, given our theoretical framework. We found similar plug-in and override behavior in several markets, including the UK, US, Germany, and Spain, implying the potential for comparable demand and welfare effects. Our findings highlight the potential for scalable AI managed charging and its substantial welfare gains for the electricity system and society. We also show that experimental estimates differed meaningfully from those obtained via non-randomized difference-in-differences analysis, due to differences in the samples in the two evaluation strategies, although we can reconcile the estimates with observables.",
+        "link": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34709&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34709&r=&r=ain"
+      },
+      "parsed": {
+        "title": "AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand",
+        "authors": "Yixin Sun",
+        "topic_relevance": 85,
+        "methodological_substance": 90,
+        "potential_impact": 80,
+        "overall_score": 85,
+        "brief_reasoning": "This paper addresses climate change mitigation through AI-optimized energy systems using rigorous experimental methods across multiple countries. The research directly informs policy decisions about electricity grid decarbonization and demonstrates substantial welfare gains.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 693,
+      "output_tokens": 151,
+      "cost_usd": 0.004344000000000001,
+      "raw_text": "```json\n{\n  \"title\": \"AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand\",\n  \"authors\": \"Yixin Sun\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 90,\n  \"potential_impact\": 80,\n  \"overall_score\": 85,\n  \"brief_reasoning\": \"This paper addresses climate change mitigation through AI-optimized energy systems using rigorous experimental methods across multiple countries. The research directly informs policy decisions about electricity grid decarbonization and demonstrates substantial welfare gains.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "AI as \"Co-founder\": GenAI for Entrepreneurship",
+        "authors": "Wu Zhu",
+        "abstract": "This paper studies whether, how, and for whom generative artificial intelligence (GenAI) facilitates firm creation. Our identification strategy exploits the November 2022 release of ChatGPT as a global shock that lowered start-up costs and leverages variations across geo-coded grids with differential pre-existing AI-specific human capital. Using high-resolution and universal data on Chinese firm registrations by the end of 2024, we find that grids with stronger AI-specific human capital experienced a sharp surge in new firm formation$\\unicode{x2013}$driven entirely by small firms, contributing to 6.0% of overall national firm entry. Large-firm entry declines, consistent with a shift toward leaner ventures. New firms are smaller in capital, shareholder number, and founding team size, especially among small firms. The effects are strongest among firms with potential AI applications, weaker financing needs, and among first-time entrepreneurs. Overall, our results highlight that GenAI serves as a pro-competitive force by disproportionately boosting small-firm entry.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06506&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06506&r=&r=ain"
+      },
+      "parsed": {
+        "title": "AI as \"Co-founder\": GenAI for Entrepreneurship",
+        "authors": "Wu Zhu",
+        "topic_relevance": 75,
+        "methodological_substance": 85,
+        "potential_impact": 70,
+        "overall_score": 77,
+        "brief_reasoning": "Strong methodological approach using ChatGPT release as natural experiment with high-resolution firm registration data. While AI's impact on entrepreneurship has policy relevance, it doesn't directly address core Unjournal priorities like global development, animal welfare, or existential risk.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 594,
+      "output_tokens": 161,
+      "cost_usd": 0.004197,
+      "raw_text": "```json\n{\n  \"title\": \"AI as \\\"Co-founder\\\": GenAI for Entrepreneurship\",\n  \"authors\": \"Wu Zhu\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 85,\n  \"potential_impact\": 70,\n  \"overall_score\": 77,\n  \"brief_reasoning\": \"Strong methodological approach using ChatGPT release as natural experiment with high-resolution firm registration data. While AI's impact on entrepreneurship has policy relevance, it doesn't directly address core Unjournal priorities like global development, animal welfare, or existential risk.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "AI-exposed jobs deteriorated before ChatGPT",
+        "authors": "Renzhe Yu",
+        "abstract": "Public debate links worsening job prospects for AI-exposed occupations to the release of ChatGPT in late 2022. Using monthly U.S. unemployment insurance records, we measure occupation- and location-specific unemployment risk and find that risk rose in AI-exposed occupations beginning in early 2022, months before ChatGPT. Analyzing millions of LinkedIn profiles, we show that graduate cohorts from 2021 onward entered AI-exposed jobs at lower rates than earlier cohorts, with gaps opening before late 2022. Finally, from millions of university syllabi, we find that graduates taking more AI-exposed curricula had higher first-job pay and shorter job searches after ChatGPT. Together, these results point to forces pre-dating generative AI and to the ongoing value of LLM-relevant education.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02554&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02554&r=&r=ain"
+      },
+      "parsed": {
+        "title": "AI-exposed jobs deteriorated before ChatGPT",
+        "authors": "Renzhe Yu",
+        "topic_relevance": 85,
+        "methodological_substance": 90,
+        "potential_impact": 80,
+        "overall_score": 85,
+        "brief_reasoning": "This paper addresses crucial questions about AI's labor market impacts using rigorous empirical methods and multiple large datasets. The timing analysis of AI exposure effects has significant implications for policy responses and understanding technological unemployment risks.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 539,
+      "output_tokens": 143,
+      "cost_usd": 0.003762,
+      "raw_text": "```json\n{\n  \"title\": \"AI-exposed jobs deteriorated before ChatGPT\",\n  \"authors\": \"Renzhe Yu\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 90,\n  \"potential_impact\": 80,\n  \"overall_score\": 85,\n  \"brief_reasoning\": \"This paper addresses crucial questions about AI's labor market impacts using rigorous empirical methods and multiple large datasets. The timing analysis of AI exposure effects has significant implications for policy responses and understanding technological unemployment risks.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "How Adaptable Are American Workers to AI-Induced Job Displacement?",
+        "authors": "Tom\u00e1s Aguirre",
+        "abstract": "We construct an occupation-level adaptive capacity index that measures a set of worker characteristics relevant for navigating job transitions if displaced, covering 356 occupations that represent 95.9% of the U.S. workforce. We find that AI exposure and adaptive capacity are positively correlated: many occupations highly exposed to AI contain workers with relatively strong means to manage a job transition. Of the 37.1 million workers in the top quartile of AI exposure, 26.5 million are in occupations that also have above-median adaptive capacity, leaving them comparatively well-equipped to handle job transitions if displacement occurs. At the same time, 6.1 million workers (4.2% of the workforce in our sample) work in occupations that are both highly exposed and where workers have low expected adaptive capacity. These workers are concentrated in clerical and administrative roles. Importantly, AI exposure reflects potential changes to work tasks, not inevitable displacement; only some of the changes brought on by AI will result in job loss. By distinguishing between highly exposed workers with relatively strong means to adjust and those with limited adaptive capacity, our analysis shows that exposure measures alone can obscure both areas of resilience to technological change and concentrated pockets of elevated vulnerability if displacement were to occur.",
+        "link": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34705&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34705&r=&r=ain"
+      },
+      "parsed": {
+        "title": "How Adaptable Are American Workers to AI-Induced Job Displacement?",
+        "authors": "Tom\u00e1s Aguirre",
+        "topic_relevance": 75,
+        "methodological_substance": 70,
+        "potential_impact": 80,
+        "overall_score": 75,
+        "brief_reasoning": "This research addresses a major global priority around technological transformation and labor market impacts, with clear policy relevance for understanding AI's distributional effects. The construction of an occupation-level adaptive capacity index covering 95.9% of the U.S. workforce suggests substantial methodological work, and the findings could inform important policy decisions about workforce transitions and support systems.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 635,
+      "output_tokens": 181,
+      "cost_usd": 0.00462,
+      "raw_text": "```json\n{\n  \"title\": \"How Adaptable Are American Workers to AI-Induced Job Displacement?\",\n  \"authors\": \"Tom\u00e1s Aguirre\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 80,\n  \"overall_score\": 75,\n  \"brief_reasoning\": \"This research addresses a major global priority around technological transformation and labor market impacts, with clear policy relevance for understanding AI's distributional effects. The construction of an occupation-level adaptive capacity index covering 95.9% of the U.S. workforce suggests substantial methodological work, and the findings could inform important policy decisions about workforce transitions and support systems.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "The Adoption and Usage of AI Agents: Early Evidence from Perplexity",
+        "authors": "Jerry Ma",
+        "abstract": "This paper presents the first large-scale field study of the adoption, usage intensity, and use cases of general-purpose AI agents operating in open-world web environments. Our analysis centers on Comet, an AI-powered browser developed by Perplexity, and its integrated agent, Comet Assistant. Drawing on hundreds of millions of anonymized user interactions, we address three fundamental questions: Who is using AI agents? How intensively are they using them? And what are they using them for? Our findings reveal substantial heterogeneity in adoption and usage across user segments. Earlier adopters, users in countries with higher GDP per capita and educational attainment, and individuals working in digital or knowledge-intensive sectors -- such as digital technology, academia, finance, marketing, and entrepreneurship -- are more likely to adopt or actively use the agent. To systematically characterize the substance of agent usage, we introduce a hierarchical agentic taxonomy that organizes use cases across three levels: topic, subtopic, and task. The two largest topics, Productivity & Workflow and Learning & Research, account for 57% of all agentic queries, while the two largest subtopics, Courses and Shopping for Goods, make up 22%. The top 10 out of 90 tasks represent 55% of queries. Personal use constitutes 55% of queries, while professional and educational contexts comprise 30% and 16%, respectively. In the short term, use cases exhibit strong stickiness, but over time users tend to shift toward more cognitively oriented topics. The diffusion of increasingly capable AI agents carries important implications for researchers, businesses, policymakers, and educators, inviting new lines of inquiry into this rapidly emerging class of AI capabilities.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.07828&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.07828&r=&r=ain"
+      },
+      "parsed": {
+        "title": "The Adoption and Usage of AI Agents: Early Evidence from Perplexity",
+        "authors": "Jerry Ma",
+        "topic_relevance": 65,
+        "methodological_substance": 70,
+        "potential_impact": 60,
+        "overall_score": 65,
+        "brief_reasoning": "While this provides valuable empirical evidence on AI adoption patterns using large-scale data, it focuses more on user behavior analysis than global priorities research. The implications for policy and welfare are secondary to the descriptive findings.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 735,
+      "output_tokens": 149,
+      "cost_usd": 0.0044399999999999995,
+      "raw_text": "```json\n{\n  \"title\": \"The Adoption and Usage of AI Agents: Early Evidence from Perplexity\",\n  \"authors\": \"Jerry Ma\",\n  \"topic_relevance\": 65,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 60,\n  \"overall_score\": 65,\n  \"brief_reasoning\": \"While this provides valuable empirical evidence on AI adoption patterns using large-scale data, it focuses more on user behavior analysis than global priorities research. The implications for policy and welfare are secondary to the descriptive findings.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Embracing gen AI: a comparison of Italian and US households",
+        "authors": "Ilaria Supino",
+        "abstract": "This paper explores the household adoption of Generative Artificial Intelligence (GenAI) in the United States and Italy, leveraging survey data to compare usage patterns, demographic influences, and employment sectoral composition effects. Our findings reveal higher adoption rates in the US, driven by socio-demographic differences between the two countries. Despite their lower usage of GenAI, Italians are more confident in its potential to improve their well-being and financial situation. Both Italian and US users tend to trust GenAI tools less than human-operated services, but Italians report greater relative trust in government and institutions when handling personal data with GenAI tools.",
+        "link": "https://d.repec.org/n?u=RePEc:bis:biswps:1322&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:bis:biswps:1322&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Embracing gen AI: a comparison of Italian and US households",
+        "authors": "Ilaria Supino",
+        "topic_relevance": 25,
+        "methodological_substance": 40,
+        "potential_impact": 30,
+        "overall_score": 32,
+        "brief_reasoning": "While AI adoption has some relevance to future welfare and policy, this appears to be a descriptive cross-country comparison focused on consumer behavior rather than addressing core global priorities or rigorous impact evaluation.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 500,
+      "output_tokens": 145,
+      "cost_usd": 0.003675,
+      "raw_text": "```json\n{\n  \"title\": \"Embracing gen AI: a comparison of Italian and US households\",\n  \"authors\": \"Ilaria Supino\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 40,\n  \"potential_impact\": 30,\n  \"overall_score\": 32,\n  \"brief_reasoning\": \"While AI adoption has some relevance to future welfare and policy, this appears to be a descriptive cross-country comparison focused on consumer behavior rather than addressing core global priorities or rigorous impact evaluation.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "AI tutoring enhances student learning without crowding out reading effort",
+        "authors": "Rilke, Rainer Michael",
+        "abstract": "We study how AI tutoring affects learning in higher education through a randomized experiment with 334 university students preparing for an incentivized exam. Students either received only textbook material, restricted access to an AI tutor requiring initial independent reading, or unrestricted access throughout the study period. AI tutor access raises test performance by 0.23 standard deviations relative to control. Surprisingly, unrestricted access significantly outperforms restricted access by 0.21 standard deviations, contradicting concerns about premature AI reliance. Behavioral analysis reveals that unrestricted access fosters gradual integration of AI support, while restricted access induces intensive bursts of prompting that disrupt learning flow. Benefits are heterogeneous: AI tutors prove most effective for students with lower baseline knowledge and stronger self-regulation skills, suggesting that seamless AI integration enhances learning when students can strategically combine independent study with targeted support.",
+        "link": "https://d.repec.org/n?u=RePEc:zbw:wzbmbh:335027&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:zbw:wzbmbh:335027&r=&r=ain"
+      },
+      "parsed": {
+        "title": "AI tutoring enhances student learning without crowding out reading effort",
+        "authors": "Rilke, Rainer Michael",
+        "topic_relevance": 65,
+        "methodological_substance": 85,
+        "potential_impact": 70,
+        "overall_score": 73,
+        "brief_reasoning": "Well-designed RCT on AI tutoring with policy-relevant findings for educational technology implementation. While not directly addressing core Unjournal priorities, the rigorous methodology and potential to inform educational policy decisions make it worth reviewing.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 563,
+      "output_tokens": 154,
+      "cost_usd": 0.003999,
+      "raw_text": "```json\n{\n  \"title\": \"AI tutoring enhances student learning without crowding out reading effort\",\n  \"authors\": \"Rilke, Rainer Michael\",\n  \"topic_relevance\": 65,\n  \"methodological_substance\": 85,\n  \"potential_impact\": 70,\n  \"overall_score\": 73,\n  \"brief_reasoning\": \"Well-designed RCT on AI tutoring with policy-relevant findings for educational technology implementation. While not directly addressing core Unjournal priorities, the rigorous methodology and potential to inform educational policy decisions make it worth reviewing.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Can artificial intelligence help improve the financial literacy of primary schools\u2019 students?",
+        "authors": "Antonio Estache",
+        "abstract": "The paper reports the results of an experiment designed to compare the impact on financial literacy skills of primary school students of a switch from a traditional pedagogical approach supported by textbooks to one relying on AI-supported methods favouring the gamification of the learning process. The study focuses on 152 students aged 8 to 11 distributed across six classes in a Bulgarian public school. The results show an important statistically significant literacy improvement for the treatment group. It also discusses the contextual dimensions accounted for in control variables that may lead to outcome differences according to the families\u2019 socio-economic background.",
+        "link": "https://d.repec.org/n?u=RePEc:eca:wpaper:2013/401374&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:eca:wpaper:2013/401374&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Can artificial intelligence help improve the financial literacy of primary schools' students?",
+        "authors": "Antonio Estache",
+        "topic_relevance": 65,
+        "methodological_substance": 70,
+        "potential_impact": 50,
+        "overall_score": 62,
+        "brief_reasoning": "While this addresses educational outcomes and uses experimental methods, the focus on AI-gamified financial literacy for Bulgarian primary students is too narrow and removed from core global priorities areas. Limited scope for informing major policy decisions.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 488,
+      "output_tokens": 147,
+      "cost_usd": 0.003669,
+      "raw_text": "```json\n{\n  \"title\": \"Can artificial intelligence help improve the financial literacy of primary schools' students?\",\n  \"authors\": \"Antonio Estache\",\n  \"topic_relevance\": 65,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 50,\n  \"overall_score\": 62,\n  \"brief_reasoning\": \"While this addresses educational outcomes and uses experimental methods, the focus on AI-gamified financial literacy for Bulgarian primary students is too narrow and removed from core global priorities areas. Limited scope for informing major policy decisions.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Exploring the Relationship Between Instructors\u2019 Perception of AI Impact on Teaching and Their Personal AI Use",
+        "authors": "Sharma, Priyanka",
+        "abstract": "The adoption of artificial intelligence (AI) is reshaping teaching in higher education. This study examines how instructors\u2019 perceptions of AI\u2019s instructional impact relate to their personal AI use, teaching experience, disciplinary affiliation, and exposure to AI-specific training. Drawing on survey data from over 600 faculty at a land-grant university, we use regression and latent class analysis to explore variation in perception and adoption. Results highlight that daily teaching use and interactive training formats are associated with more favorable views. Findings offer guidance for developing faculty support strategies and training programs that foster effective and context-aware AI integration.",
+        "link": "https://d.repec.org/n?u=RePEc:ags:aaea25:361162&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:ags:aaea25:361162&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Exploring the Relationship Between Instructors' Perception of AI Impact on Teaching and Their Personal AI Use",
+        "authors": "Sharma, Priyanka",
+        "topic_relevance": 25,
+        "methodological_substance": 65,
+        "potential_impact": 30,
+        "overall_score": 40,
+        "brief_reasoning": "While this uses reasonable quantitative methods (survey of 600+ faculty, regression analysis), it focuses narrowly on AI adoption in higher education rather than addressing global priorities, development, or broader welfare concerns that align with The Unjournal's mission.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 502,
+      "output_tokens": 166,
+      "cost_usd": 0.0039959999999999996,
+      "raw_text": "```json\n{\n  \"title\": \"Exploring the Relationship Between Instructors' Perception of AI Impact on Teaching and Their Personal AI Use\",\n  \"authors\": \"Sharma, Priyanka\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 65,\n  \"potential_impact\": 30,\n  \"overall_score\": 40,\n  \"brief_reasoning\": \"While this uses reasonable quantitative methods (survey of 600+ faculty, regression analysis), it focuses narrowly on AI adoption in higher education rather than addressing global priorities, development, or broader welfare concerns that align with The Unjournal's mission.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism",
+        "authors": "Guangnan Ye",
+        "abstract": "Understanding decision-making in multi-AI-agent frameworks is crucial for analyzing strategic interactions in network-effect-driven contexts. This study investigates how AI agents navigate network-effect games, where individual payoffs depend on peer participatio--a context underexplored in multi-agent systems despite its real-world prevalence. We introduce a novel workflow design using large language model (LLM)-based agents in repeated decision-making scenarios, systematically manipulating price trajectories (fixed, ascending, descending, random) and network-effect strength. Our key findings include: First, without historical data, agents fail to infer equilibrium. Second, ordered historical sequences (e.g., escalating prices) enable partial convergence under weak network effects but strong effects trigger persistent \"AI optimism\"--agents overestimate participation despite contradictory evidence. Third, randomized history disrupts convergence entirely, demonstrating that temporal coherence in data shapes LLMs' reasoning, unlike humans. These results highlight a paradigm shift: in AI-mediated systems, equilibrium outcomes depend not just on incentives, but on how history is curated, which is impossible for human.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11943&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11943&r=&r=ain"
+      },
+      "parsed": {
+        "title": "How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism",
+        "authors": "Guangnan Ye",
+        "topic_relevance": 75,
+        "methodological_substance": 70,
+        "potential_impact": 80,
+        "overall_score": 75,
+        "brief_reasoning": "This research addresses AI coordination and decision-making patterns that could be crucial for understanding risks in AI-mediated systems, particularly relevant to existential risk considerations. The systematic experimental design with LLM agents and novel findings about 'AI optimism' could inform important policy decisions about AI deployment and governance.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 618,
+      "output_tokens": 175,
+      "cost_usd": 0.004479,
+      "raw_text": "```json\n{\n  \"title\": \"How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism\",\n  \"authors\": \"Guangnan Ye\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 80,\n  \"overall_score\": 75,\n  \"brief_reasoning\": \"This research addresses AI coordination and decision-making patterns that could be crucial for understanding risks in AI-mediated systems, particularly relevant to existential risk considerations. The systematic experimental design with LLM agents and novel findings about 'AI optimism' could inform important policy decisions about AI deployment and governance.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance",
+        "authors": "David Byrd",
+        "abstract": "Generative and agentic artificial intelligence is entering financial markets faster than existing governance can adapt. Current model-risk frameworks assume static, well-specified algorithms and one-time validations; large language models and multi-agent trading systems violate those assumptions by learning continuously, exchanging latent signals, and exhibiting emergent behavior. Drawing on complex adaptive systems theory, we model these technologies as decentralized ensembles whose risks propagate along multiple time-scales. We then propose a modular governance architecture. The framework decomposes oversight into four layers of \"regulatory blocks\": (i) self-regulation modules embedded beside each model, (ii) firm-level governance blocks that aggregate local telemetry and enforce policy, (iii) regulator-hosted agents that monitor sector-wide indicators for collusive or destabilizing patterns, and (iv) independent audit blocks that supply third-party assurance. Eight design strategies enable the blocks to evolve as fast as the models they police. A case study on emergent spoofing in multi-agent trading shows how the layered controls quarantine harmful behavior in real time while preserving innovation. The architecture remains compatible with today's model-risk rules yet closes critical observability and control gaps, providing a practical path toward resilient, adaptive AI governance in financial systems.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11933&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11933&r=&r=ain"
+      },
+      "parsed": {
+        "title": "The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance",
+        "authors": "David Byrd",
+        "topic_relevance": 75,
+        "methodological_substance": 60,
+        "potential_impact": 80,
+        "overall_score": 72,
+        "brief_reasoning": "Addresses important AI governance risks in financial systems with policy-relevant framework, though methodology appears more theoretical/conceptual than rigorously quantitative. High potential for informing AI regulation decisions.",
+        "proceed_to_phase2": true
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 649,
+      "output_tokens": 155,
+      "cost_usd": 0.004272,
+      "raw_text": "```json\n{\n  \"title\": \"The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance\",\n  \"authors\": \"David Byrd\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 60,\n  \"potential_impact\": 80,\n  \"overall_score\": 72,\n  \"brief_reasoning\": \"Addresses important AI governance risks in financial systems with policy-relevant framework, though methodology appears more theoretical/conceptual than rigorously quantitative. High potential for informing AI regulation decisions.\",\n  \"proceed_to_phase2\": true\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "AI-Trader: Benchmarking Autonomous Agents in Real-Time Financial Markets",
+        "authors": "Chao Huang",
+        "abstract": "Large Language Models (LLMs) have demonstrated remarkable potential as autonomous agents, approaching human-expert performance through advanced reasoning and tool orchestration. However, decision-making in fully dynamic and live environments remains highly challenging, requiring real-time information integration and adaptive responses. While existing efforts have explored live evaluation mechanisms in structured tasks, a critical gap remains in systematic benchmarking for real-world applications, particularly in finance where stringent requirements exist for live strategic responsiveness. To address this gap, we introduce AI-Trader, the first fully-automated, live, and data-uncontaminated evaluation benchmark for LLM agents in financial decision-making. AI-Trader spans three major financial markets: U.S. stocks, A-shares, and cryptocurrencies, with multiple trading granularities to simulate live financial environments. Our benchmark implements a revolutionary fully autonomous minimal information paradigm where agents receive only essential context and must independently search, verify, and synthesize live market information without human intervention. We evaluate six mainstream LLMs across three markets and multiple trading frequencies. Our analysis reveals striking findings: general intelligence does not automatically translate to effective trading capability, with most agents exhibiting poor returns and weak risk management. We demonstrate that risk control capability determines cross-market robustness, and that AI trading strategies achieve excess returns more readily in highly liquid markets than policy-driven environments. These findings expose critical limitations in current autonomous agents and provide clear directions for future improvements. The code and evaluation data are open-sourced to foster community research: https://github.com/HKUDS/AI-Trader.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.10971&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.10971&r=&r=ain"
+      },
+      "parsed": {
+        "title": "AI-Trader: Benchmarking Autonomous Agents in Real-Time Financial Markets",
+        "authors": "Chao Huang",
+        "topic_relevance": 25,
+        "methodological_substance": 70,
+        "potential_impact": 30,
+        "overall_score": 42,
+        "brief_reasoning": "While methodologically rigorous with live benchmarking across multiple markets, this focuses narrowly on AI trading performance rather than broader welfare implications or global priorities that align with Unjournal's mission.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 703,
+      "output_tokens": 150,
+      "cost_usd": 0.004359,
+      "raw_text": "```json\n{\n  \"title\": \"AI-Trader: Benchmarking Autonomous Agents in Real-Time Financial Markets\",\n  \"authors\": \"Chao Huang\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 30,\n  \"overall_score\": 42,\n  \"brief_reasoning\": \"While methodologically rigorous with live benchmarking across multiple markets, this focuses narrowly on AI trading performance rather than broader welfare implications or global priorities that align with Unjournal's mission.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    },
+    {
+      "paper": {
+        "title": "Uni-FinLLM: A Unified Multimodal Large Language Model with Modular Task Heads for Micro-Level Stock Prediction and Macro-Level Systemic Risk Assessment",
+        "authors": "Lu Jiang",
+        "abstract": "Financial institutions and regulators require systems that integrate heterogeneous data to assess risks from stock fluctuations to systemic vulnerabilities. Existing approaches often treat these tasks in isolation, failing to capture cross-scale dependencies. We propose Uni-FinLLM, a unified multimodal large language model that uses a shared Transformer backbone and modular task heads to jointly process financial text, numerical time series, fundamentals, and visual data. Through cross-modal attention and multi-task optimization, it learns a coherent representation for micro-, meso-, and macro-level predictions. Evaluated on stock forecasting, credit-risk assessment, and systemic-risk detection, Uni-FinLLM significantly outperforms baselines. It raises stock directional accuracy to 67.4% (from 61.7%), credit-risk accuracy to 84.1% (from 79.6%), and macro early-warning accuracy to 82.3%. Results validate that a unified multimodal LLM can jointly model asset behavior and systemic vulnerabilities, offering a scalable decision-support engine for finance.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02677&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02677&r=&r=ain"
+      },
+      "parsed": {
+        "title": "Uni-FinLLM: A Unified Multimodal Large Language Model with Modular Task Heads for Micro-Level Stock Prediction and Macro-Level Systemic Risk Assessment",
+        "authors": "Lu Jiang",
+        "topic_relevance": 25,
+        "methodological_substance": 70,
+        "potential_impact": 30,
+        "overall_score": 42,
+        "brief_reasoning": "While methodologically sophisticated with multimodal LLM architecture, this focuses narrowly on financial prediction systems rather than broader welfare or global priorities concerns that align with Unjournal's mission.",
+        "proceed_to_phase2": false
+      },
+      "model": "claude-sonnet-4-20250514",
+      "input_tokens": 631,
+      "output_tokens": 173,
+      "cost_usd": 0.004488000000000001,
+      "raw_text": "```json\n{\n  \"title\": \"Uni-FinLLM: A Unified Multimodal Large Language Model with Modular Task Heads for Micro-Level Stock Prediction and Macro-Level Systemic Risk Assessment\",\n  \"authors\": \"Lu Jiang\",\n  \"topic_relevance\": 25,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 30,\n  \"overall_score\": 42,\n  \"brief_reasoning\": \"While methodologically sophisticated with multimodal LLM architecture, this focuses narrowly on financial prediction systems rather than broader welfare or global priorities concerns that align with Unjournal's mission.\",\n  \"proceed_to_phase2\": false\n}\n```"
+    }
+  ],
+  "phase2_results": [
+    {
+      "paper": {
+        "title": "Evaluating Behavioral Interventions at Scale with AI",
+        "authors": "Christopher Roth",
+        "abstract": "We test the effectiveness of different AI-delivered conversation protocols to increase people\u2019 motivation for change. In a large-scale experiment with 2, 719 social media users, we randomly assign participants to a control conversation or one of three treatment arms: two Motivational Interviewing protocols promoting self-persuasion (change focus or decisional balance) and a direct persuasion protocol providing unsolicited advice and information. All conversations are led by an AI interviewer, enabling standardized delivery of each protocol at scale. Our results show that all three interventions significantly increase motivation for change and the perceived costs of social media use, with change-focused self-persuasion yielding the largest effects. These effects persist and translate into self-reported reductions in social media use more than two weeks after the intervention. Our findings illustrate how AI-led conversations can serve as a scalable platform both for delivering behavioral interventions and for testing what makes them effective by systematically varying how conversations are conducted.",
+        "link": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:385&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:385&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "Evaluating Behavioral Interventions at Scale with AI",
+          "authors": "Christopher Roth",
+          "abstract": "We test the effectiveness of different AI-delivered conversation protocols to increase people\u2019 motivation for change. In a large-scale experiment with 2, 719 social media users, we randomly assign participants to a control conversation or one of three treatment arms: two Motivational Interviewing protocols promoting self-persuasion (change focus or decisional balance) and a direct persuasion protocol providing unsolicited advice and information. All conversations are led by an AI interviewer, enabling standardized delivery of each protocol at scale. Our results show that all three interventions significantly increase motivation for change and the perceived costs of social media use, with change-focused self-persuasion yielding the largest effects. These effects persist and translate into self-reported reductions in social media use more than two weeks after the intervention. Our findings illustrate how AI-led conversations can serve as a scalable platform both for delivering behavioral interventions and for testing what makes them effective by systematically varying how conversations are conducted.",
+          "link": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:385&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:ajk:ajkdps:385&r=&r=ain"
+        },
+        "parsed": {
+          "title": "Evaluating Behavioral Interventions at Scale with AI",
+          "authors": "Christopher Roth",
+          "topic_relevance": 70,
+          "methodological_substance": 85,
+          "potential_impact": 75,
+          "overall_score": 77,
+          "brief_reasoning": "Strong RCT methodology testing AI-delivered behavioral interventions with policy-relevant implications for digital wellbeing and scalable intervention design. While not directly addressing core Unjournal priorities, the methodological innovation and potential for broader application to global development contexts makes it worth reviewing.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 568,
+        "output_tokens": 159,
+        "cost_usd": 0.004089000000000001,
+        "raw_text": "```json\n{\n  \"title\": \"Evaluating Behavioral Interventions at Scale with AI\",\n  \"authors\": \"Christopher Roth\",\n  \"topic_relevance\": 70,\n  \"methodological_substance\": 85,\n  \"potential_impact\": 75,\n  \"overall_score\": 77,\n  \"brief_reasoning\": \"Strong RCT methodology testing AI-delivered behavioral interventions with policy-relevant implications for digital wellbeing and scalable intervention design. While not directly addressing core Unjournal priorities, the methodological innovation and potential for broader application to global development contexts makes it worth reviewing.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "Antisocial behavior towards large language model users: experimental evidence",
+        "authors": "Cassandra Gr\\\"utzner",
+        "abstract": "The rapid spread of large language models (LLMs) has raised concerns about the social reactions they provoke. Prior research documents negative attitudes toward AI users, but it remains unclear whether such disapproval translates into costly action. We address this question in a two-phase online experiment (N = 491 Phase II participants; Phase I provided targets) where participants could spend part of their own endowment to reduce the earnings of peers who had previously completed a real-effort task with or without LLM support. On average, participants destroyed 36% of the earnings of those who relied exclusively on the model, with punishment increasing monotonically with actual LLM use. Disclosure about LLM use created a credibility gap: self-reported null use was punished more harshly than actual null use, suggesting that declarations of \"no use\" are treated with suspicion. Conversely, at high levels of use, actual reliance on the model was punished more strongly than self-reported reliance. Taken together, these findings provide the first behavioral evidence that the efficiency gains of LLMs come at the cost of social sanctions.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.09772&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.09772&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "Antisocial behavior towards large language model users: experimental evidence",
+          "authors": "Cassandra Gr\\\"utzner",
+          "abstract": "The rapid spread of large language models (LLMs) has raised concerns about the social reactions they provoke. Prior research documents negative attitudes toward AI users, but it remains unclear whether such disapproval translates into costly action. We address this question in a two-phase online experiment (N = 491 Phase II participants; Phase I provided targets) where participants could spend part of their own endowment to reduce the earnings of peers who had previously completed a real-effort task with or without LLM support. On average, participants destroyed 36% of the earnings of those who relied exclusively on the model, with punishment increasing monotonically with actual LLM use. Disclosure about LLM use created a credibility gap: self-reported null use was punished more harshly than actual null use, suggesting that declarations of \"no use\" are treated with suspicion. Conversely, at high levels of use, actual reliance on the model was punished more strongly than self-reported reliance. Taken together, these findings provide the first behavioral evidence that the efficiency gains of LLMs come at the cost of social sanctions.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.09772&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.09772&r=&r=ain"
+        },
+        "parsed": {
+          "title": "Antisocial behavior towards large language model users: experimental evidence",
+          "authors": "Cassandra Gr\u00fctzner",
+          "topic_relevance": 75,
+          "methodological_substance": 80,
+          "potential_impact": 70,
+          "overall_score": 75,
+          "brief_reasoning": "This experimental study addresses important questions about social acceptance of AI technology adoption, which has significant implications for AI governance and technology policy. The rigorous experimental design and novel behavioral findings on LLM adoption barriers could inform technology deployment decisions.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 607,
+        "output_tokens": 152,
+        "cost_usd": 0.0041010000000000005,
+        "raw_text": "```json\n{\n  \"title\": \"Antisocial behavior towards large language model users: experimental evidence\",\n  \"authors\": \"Cassandra Gr\u00fctzner\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 80,\n  \"potential_impact\": 70,\n  \"overall_score\": 75,\n  \"brief_reasoning\": \"This experimental study addresses important questions about social acceptance of AI technology adoption, which has significant implications for AI governance and technology policy. The rigorous experimental design and novel behavioral findings on LLM adoption barriers could inform technology deployment decisions.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "LLM Collusion",
+        "authors": "Ming Hu",
+        "abstract": "We study how delegating pricing to large language models (LLMs) can facilitate collusion in a duopoly when both sellers rely on the same pre-trained model. The LLM is characterized by (i) a propensity parameter capturing its internal bias toward high-price recommendations and (ii) an output-fidelity parameter measuring how tightly outputs track that bias; the propensity evolves through retraining. We show that configuring LLMs for robustness and reproducibility can induce collusion via a phase transition: there exists a critical output-fidelity threshold that pins down long-run behavior. Below it, competitive pricing is the unique long-run outcome. Above it, the system is bistable, with competitive and collusive pricing both locally stable and the realized outcome determined by the model's initial preference. The collusive regime resembles tacit collusion: prices are elevated on average, yet occasional low-price recommendations provide plausible deniability. With perfect fidelity, full collusion emerges from any interior initial condition. For finite training batches of size $b$, infrequent retraining (driven by computational costs) further amplifies collusion: conditional on starting in the collusive basin, the probability of collusion approaches one as $b$ grows, since larger batches dampen stochastic fluctuations that might otherwise tip the system toward competition. The indeterminacy region shrinks at rate $O(1/\\sqrt{b})$.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.01279&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.01279&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "LLM Collusion",
+          "authors": "Ming Hu",
+          "abstract": "We study how delegating pricing to large language models (LLMs) can facilitate collusion in a duopoly when both sellers rely on the same pre-trained model. The LLM is characterized by (i) a propensity parameter capturing its internal bias toward high-price recommendations and (ii) an output-fidelity parameter measuring how tightly outputs track that bias; the propensity evolves through retraining. We show that configuring LLMs for robustness and reproducibility can induce collusion via a phase transition: there exists a critical output-fidelity threshold that pins down long-run behavior. Below it, competitive pricing is the unique long-run outcome. Above it, the system is bistable, with competitive and collusive pricing both locally stable and the realized outcome determined by the model's initial preference. The collusive regime resembles tacit collusion: prices are elevated on average, yet occasional low-price recommendations provide plausible deniability. With perfect fidelity, full collusion emerges from any interior initial condition. For finite training batches of size $b$, infrequent retraining (driven by computational costs) further amplifies collusion: conditional on starting in the collusive basin, the probability of collusion approaches one as $b$ grows, since larger batches dampen stochastic fluctuations that might otherwise tip the system toward competition. The indeterminacy region shrinks at rate $O(1/\\sqrt{b})$.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.01279&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.01279&r=&r=ain"
+        },
+        "parsed": {
+          "title": "LLM Collusion",
+          "authors": "Ming Hu",
+          "topic_relevance": 85,
+          "methodological_substance": 75,
+          "potential_impact": 90,
+          "overall_score": 83,
+          "brief_reasoning": "This paper addresses a critical policy issue - algorithmic collusion via LLMs - with clear implications for competition policy and market regulation as AI adoption accelerates. The theoretical framework appears rigorous and the findings on how LLM configuration affects collusive outcomes could inform important regulatory decisions.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 674,
+        "output_tokens": 152,
+        "cost_usd": 0.004302,
+        "raw_text": "```json\n{\n  \"title\": \"LLM Collusion\",\n  \"authors\": \"Ming Hu\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 75,\n  \"potential_impact\": 90,\n  \"overall_score\": 83,\n  \"brief_reasoning\": \"This paper addresses a critical policy issue - algorithmic collusion via LLMs - with clear implications for competition policy and market regulation as AI adoption accelerates. The theoretical framework appears rigorous and the findings on how LLM configuration affects collusive outcomes could inform important regulatory decisions.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "When Medical AI Explanations Help and When They Harm",
+        "authors": "Lian Xue",
+        "abstract": "We document a fundamental paradox in AI transparency: explanations improve decisions when algorithms are correct but systematically worsen them when algorithms err. In an experiment with 257 medical students making 3, 855 diagnostic decisions, we find explanations increase accuracy by 6.3 percentage points when AI is correct (73% of cases) but decrease it by 4.9 points when incorrect (27% of cases). This asymmetry arises because modern AI systems generate equally persuasive explanations regardless of recommendation quality-physicians cannot distinguish helpful from misleading guidance. We show physicians treat explained AI as 15.2 percentage points more accurate than reality, with over-reliance persisting even for erroneous recommendations. Competent physicians with appropriate uncertainty suffer most from the AI transparency paradox (-12.4pp when AI errs), while overconfident novices benefit most (+9.9pp net). Welfare analysis reveals that selective transparency generates \\$2.59 billion in annual healthcare value, 43% more than the \\$1.82 billion from mandated universal transparency.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.08424&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.08424&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "When Medical AI Explanations Help and When They Harm",
+          "authors": "Lian Xue",
+          "abstract": "We document a fundamental paradox in AI transparency: explanations improve decisions when algorithms are correct but systematically worsen them when algorithms err. In an experiment with 257 medical students making 3, 855 diagnostic decisions, we find explanations increase accuracy by 6.3 percentage points when AI is correct (73% of cases) but decrease it by 4.9 points when incorrect (27% of cases). This asymmetry arises because modern AI systems generate equally persuasive explanations regardless of recommendation quality-physicians cannot distinguish helpful from misleading guidance. We show physicians treat explained AI as 15.2 percentage points more accurate than reality, with over-reliance persisting even for erroneous recommendations. Competent physicians with appropriate uncertainty suffer most from the AI transparency paradox (-12.4pp when AI errs), while overconfident novices benefit most (+9.9pp net). Welfare analysis reveals that selective transparency generates \\$2.59 billion in annual healthcare value, 43% more than the \\$1.82 billion from mandated universal transparency.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.08424&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.08424&r=&r=ain"
+        },
+        "parsed": {
+          "title": "When Medical AI Explanations Help and When They Harm",
+          "authors": "Lian Xue",
+          "topic_relevance": 85,
+          "methodological_substance": 90,
+          "potential_impact": 95,
+          "overall_score": 90,
+          "brief_reasoning": "This paper addresses a critical global health priority with rigorous experimental design and significant welfare implications. The findings on AI transparency paradoxes could inform major healthcare AI deployment decisions worldwide.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 596,
+        "output_tokens": 139,
+        "cost_usd": 0.0038729999999999997,
+        "raw_text": "```json\n{\n  \"title\": \"When Medical AI Explanations Help and When They Harm\",\n  \"authors\": \"Lian Xue\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 90,\n  \"potential_impact\": 95,\n  \"overall_score\": 90,\n  \"brief_reasoning\": \"This paper addresses a critical global health priority with rigorous experimental design and significant welfare implications. The findings on AI transparency paradoxes could inform major healthcare AI deployment decisions worldwide.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand",
+        "authors": "Yixin Sun",
+        "abstract": "One of the promising opportunities offered by AI to support the decarbonization of electricity grids is to align demand with low-carbon supply. We evaluated the effects of one of the world\u2019s largest AI managed EV charging tariffs (a retail electricity pricing plan) using a large-scale natural field experiment. The tariff dynamically controlled vehicle charging to follow real-time wholesale electricity prices and coordinate and optimize charging for the grid and the consumer through AI. We randomized financial incentives to encourage enrollment onto the tariff. Over more than a year, we found that the tariff led to a 42% reduction in household electricity demand during peak hours, with 100% of this demand shifted to lower-cost and lower-carbon-intensity periods. The tariff generated substantial consumer savings, while demonstrating potential to lower producer costs, energy system costs, and carbon emissions through significant load shifting. Overrides of the AI algorithm were low, suggesting that this tariff was likely more efficient than a real-time-pricing tariff without AI, given our theoretical framework. We found similar plug-in and override behavior in several markets, including the UK, US, Germany, and Spain, implying the potential for comparable demand and welfare effects. Our findings highlight the potential for scalable AI managed charging and its substantial welfare gains for the electricity system and society. We also show that experimental estimates differed meaningfully from those obtained via non-randomized difference-in-differences analysis, due to differences in the samples in the two evaluation strategies, although we can reconcile the estimates with observables.",
+        "link": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34709&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34709&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand",
+          "authors": "Yixin Sun",
+          "abstract": "One of the promising opportunities offered by AI to support the decarbonization of electricity grids is to align demand with low-carbon supply. We evaluated the effects of one of the world\u2019s largest AI managed EV charging tariffs (a retail electricity pricing plan) using a large-scale natural field experiment. The tariff dynamically controlled vehicle charging to follow real-time wholesale electricity prices and coordinate and optimize charging for the grid and the consumer through AI. We randomized financial incentives to encourage enrollment onto the tariff. Over more than a year, we found that the tariff led to a 42% reduction in household electricity demand during peak hours, with 100% of this demand shifted to lower-cost and lower-carbon-intensity periods. The tariff generated substantial consumer savings, while demonstrating potential to lower producer costs, energy system costs, and carbon emissions through significant load shifting. Overrides of the AI algorithm were low, suggesting that this tariff was likely more efficient than a real-time-pricing tariff without AI, given our theoretical framework. We found similar plug-in and override behavior in several markets, including the UK, US, Germany, and Spain, implying the potential for comparable demand and welfare effects. Our findings highlight the potential for scalable AI managed charging and its substantial welfare gains for the electricity system and society. We also show that experimental estimates differed meaningfully from those obtained via non-randomized difference-in-differences analysis, due to differences in the samples in the two evaluation strategies, although we can reconcile the estimates with observables.",
+          "link": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34709&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34709&r=&r=ain"
+        },
+        "parsed": {
+          "title": "AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand",
+          "authors": "Yixin Sun",
+          "topic_relevance": 85,
+          "methodological_substance": 90,
+          "potential_impact": 80,
+          "overall_score": 85,
+          "brief_reasoning": "This paper addresses climate change mitigation through AI-optimized energy systems using rigorous experimental methods across multiple countries. The research directly informs policy decisions about electricity grid decarbonization and demonstrates substantial welfare gains.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 693,
+        "output_tokens": 151,
+        "cost_usd": 0.004344000000000001,
+        "raw_text": "```json\n{\n  \"title\": \"AI in Charge: Large-Scale Experimental Evidence on Electric Vehicle Charging Demand\",\n  \"authors\": \"Yixin Sun\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 90,\n  \"potential_impact\": 80,\n  \"overall_score\": 85,\n  \"brief_reasoning\": \"This paper addresses climate change mitigation through AI-optimized energy systems using rigorous experimental methods across multiple countries. The research directly informs policy decisions about electricity grid decarbonization and demonstrates substantial welfare gains.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "AI as \"Co-founder\": GenAI for Entrepreneurship",
+        "authors": "Wu Zhu",
+        "abstract": "This paper studies whether, how, and for whom generative artificial intelligence (GenAI) facilitates firm creation. Our identification strategy exploits the November 2022 release of ChatGPT as a global shock that lowered start-up costs and leverages variations across geo-coded grids with differential pre-existing AI-specific human capital. Using high-resolution and universal data on Chinese firm registrations by the end of 2024, we find that grids with stronger AI-specific human capital experienced a sharp surge in new firm formation$\\unicode{x2013}$driven entirely by small firms, contributing to 6.0% of overall national firm entry. Large-firm entry declines, consistent with a shift toward leaner ventures. New firms are smaller in capital, shareholder number, and founding team size, especially among small firms. The effects are strongest among firms with potential AI applications, weaker financing needs, and among first-time entrepreneurs. Overall, our results highlight that GenAI serves as a pro-competitive force by disproportionately boosting small-firm entry.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06506&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06506&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "AI as \"Co-founder\": GenAI for Entrepreneurship",
+          "authors": "Wu Zhu",
+          "abstract": "This paper studies whether, how, and for whom generative artificial intelligence (GenAI) facilitates firm creation. Our identification strategy exploits the November 2022 release of ChatGPT as a global shock that lowered start-up costs and leverages variations across geo-coded grids with differential pre-existing AI-specific human capital. Using high-resolution and universal data on Chinese firm registrations by the end of 2024, we find that grids with stronger AI-specific human capital experienced a sharp surge in new firm formation$\\unicode{x2013}$driven entirely by small firms, contributing to 6.0% of overall national firm entry. Large-firm entry declines, consistent with a shift toward leaner ventures. New firms are smaller in capital, shareholder number, and founding team size, especially among small firms. The effects are strongest among firms with potential AI applications, weaker financing needs, and among first-time entrepreneurs. Overall, our results highlight that GenAI serves as a pro-competitive force by disproportionately boosting small-firm entry.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06506&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.06506&r=&r=ain"
+        },
+        "parsed": {
+          "title": "AI as \"Co-founder\": GenAI for Entrepreneurship",
+          "authors": "Wu Zhu",
+          "topic_relevance": 75,
+          "methodological_substance": 85,
+          "potential_impact": 70,
+          "overall_score": 77,
+          "brief_reasoning": "Strong methodological approach using ChatGPT release as natural experiment with high-resolution firm registration data. While AI's impact on entrepreneurship has policy relevance, it doesn't directly address core Unjournal priorities like global development, animal welfare, or existential risk.",
+          "proceed_to_phase2": false
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 594,
+        "output_tokens": 161,
+        "cost_usd": 0.004197,
+        "raw_text": "```json\n{\n  \"title\": \"AI as \\\"Co-founder\\\": GenAI for Entrepreneurship\",\n  \"authors\": \"Wu Zhu\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 85,\n  \"potential_impact\": 70,\n  \"overall_score\": 77,\n  \"brief_reasoning\": \"Strong methodological approach using ChatGPT release as natural experiment with high-resolution firm registration data. While AI's impact on entrepreneurship has policy relevance, it doesn't directly address core Unjournal priorities like global development, animal welfare, or existential risk.\",\n  \"proceed_to_phase2\": false\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "AI-exposed jobs deteriorated before ChatGPT",
+        "authors": "Renzhe Yu",
+        "abstract": "Public debate links worsening job prospects for AI-exposed occupations to the release of ChatGPT in late 2022. Using monthly U.S. unemployment insurance records, we measure occupation- and location-specific unemployment risk and find that risk rose in AI-exposed occupations beginning in early 2022, months before ChatGPT. Analyzing millions of LinkedIn profiles, we show that graduate cohorts from 2021 onward entered AI-exposed jobs at lower rates than earlier cohorts, with gaps opening before late 2022. Finally, from millions of university syllabi, we find that graduates taking more AI-exposed curricula had higher first-job pay and shorter job searches after ChatGPT. Together, these results point to forces pre-dating generative AI and to the ongoing value of LLM-relevant education.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02554&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02554&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "AI-exposed jobs deteriorated before ChatGPT",
+          "authors": "Renzhe Yu",
+          "abstract": "Public debate links worsening job prospects for AI-exposed occupations to the release of ChatGPT in late 2022. Using monthly U.S. unemployment insurance records, we measure occupation- and location-specific unemployment risk and find that risk rose in AI-exposed occupations beginning in early 2022, months before ChatGPT. Analyzing millions of LinkedIn profiles, we show that graduate cohorts from 2021 onward entered AI-exposed jobs at lower rates than earlier cohorts, with gaps opening before late 2022. Finally, from millions of university syllabi, we find that graduates taking more AI-exposed curricula had higher first-job pay and shorter job searches after ChatGPT. Together, these results point to forces pre-dating generative AI and to the ongoing value of LLM-relevant education.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02554&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2601.02554&r=&r=ain"
+        },
+        "parsed": {
+          "title": "AI-exposed jobs deteriorated before ChatGPT",
+          "authors": "Renzhe Yu",
+          "topic_relevance": 85,
+          "methodological_substance": 90,
+          "potential_impact": 80,
+          "overall_score": 85,
+          "brief_reasoning": "This paper addresses crucial questions about AI's labor market impacts using rigorous empirical methods and multiple large datasets. The timing analysis of AI exposure effects has significant implications for policy responses and understanding technological unemployment risks.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 539,
+        "output_tokens": 143,
+        "cost_usd": 0.003762,
+        "raw_text": "```json\n{\n  \"title\": \"AI-exposed jobs deteriorated before ChatGPT\",\n  \"authors\": \"Renzhe Yu\",\n  \"topic_relevance\": 85,\n  \"methodological_substance\": 90,\n  \"potential_impact\": 80,\n  \"overall_score\": 85,\n  \"brief_reasoning\": \"This paper addresses crucial questions about AI's labor market impacts using rigorous empirical methods and multiple large datasets. The timing analysis of AI exposure effects has significant implications for policy responses and understanding technological unemployment risks.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "How Adaptable Are American Workers to AI-Induced Job Displacement?",
+        "authors": "Tom\u00e1s Aguirre",
+        "abstract": "We construct an occupation-level adaptive capacity index that measures a set of worker characteristics relevant for navigating job transitions if displaced, covering 356 occupations that represent 95.9% of the U.S. workforce. We find that AI exposure and adaptive capacity are positively correlated: many occupations highly exposed to AI contain workers with relatively strong means to manage a job transition. Of the 37.1 million workers in the top quartile of AI exposure, 26.5 million are in occupations that also have above-median adaptive capacity, leaving them comparatively well-equipped to handle job transitions if displacement occurs. At the same time, 6.1 million workers (4.2% of the workforce in our sample) work in occupations that are both highly exposed and where workers have low expected adaptive capacity. These workers are concentrated in clerical and administrative roles. Importantly, AI exposure reflects potential changes to work tasks, not inevitable displacement; only some of the changes brought on by AI will result in job loss. By distinguishing between highly exposed workers with relatively strong means to adjust and those with limited adaptive capacity, our analysis shows that exposure measures alone can obscure both areas of resilience to technological change and concentrated pockets of elevated vulnerability if displacement were to occur.",
+        "link": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34705&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34705&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "How Adaptable Are American Workers to AI-Induced Job Displacement?",
+          "authors": "Tom\u00e1s Aguirre",
+          "abstract": "We construct an occupation-level adaptive capacity index that measures a set of worker characteristics relevant for navigating job transitions if displaced, covering 356 occupations that represent 95.9% of the U.S. workforce. We find that AI exposure and adaptive capacity are positively correlated: many occupations highly exposed to AI contain workers with relatively strong means to manage a job transition. Of the 37.1 million workers in the top quartile of AI exposure, 26.5 million are in occupations that also have above-median adaptive capacity, leaving them comparatively well-equipped to handle job transitions if displacement occurs. At the same time, 6.1 million workers (4.2% of the workforce in our sample) work in occupations that are both highly exposed and where workers have low expected adaptive capacity. These workers are concentrated in clerical and administrative roles. Importantly, AI exposure reflects potential changes to work tasks, not inevitable displacement; only some of the changes brought on by AI will result in job loss. By distinguishing between highly exposed workers with relatively strong means to adjust and those with limited adaptive capacity, our analysis shows that exposure measures alone can obscure both areas of resilience to technological change and concentrated pockets of elevated vulnerability if displacement were to occur.",
+          "link": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34705&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:nbr:nberwo:34705&r=&r=ain"
+        },
+        "parsed": {
+          "title": "How Adaptable Are American Workers to AI-Induced Job Displacement?",
+          "authors": "Tom\u00e1s Aguirre",
+          "topic_relevance": 75,
+          "methodological_substance": 70,
+          "potential_impact": 80,
+          "overall_score": 75,
+          "brief_reasoning": "This research addresses a major global priority around technological transformation and labor market impacts, with clear policy relevance for understanding AI's distributional effects. The construction of an occupation-level adaptive capacity index covering 95.9% of the U.S. workforce suggests substantial methodological work, and the findings could inform important policy decisions about workforce transitions and support systems.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 635,
+        "output_tokens": 181,
+        "cost_usd": 0.00462,
+        "raw_text": "```json\n{\n  \"title\": \"How Adaptable Are American Workers to AI-Induced Job Displacement?\",\n  \"authors\": \"Tom\u00e1s Aguirre\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 80,\n  \"overall_score\": 75,\n  \"brief_reasoning\": \"This research addresses a major global priority around technological transformation and labor market impacts, with clear policy relevance for understanding AI's distributional effects. The construction of an occupation-level adaptive capacity index covering 95.9% of the U.S. workforce suggests substantial methodological work, and the findings could inform important policy decisions about workforce transitions and support systems.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "The Adoption and Usage of AI Agents: Early Evidence from Perplexity",
+        "authors": "Jerry Ma",
+        "abstract": "This paper presents the first large-scale field study of the adoption, usage intensity, and use cases of general-purpose AI agents operating in open-world web environments. Our analysis centers on Comet, an AI-powered browser developed by Perplexity, and its integrated agent, Comet Assistant. Drawing on hundreds of millions of anonymized user interactions, we address three fundamental questions: Who is using AI agents? How intensively are they using them? And what are they using them for? Our findings reveal substantial heterogeneity in adoption and usage across user segments. Earlier adopters, users in countries with higher GDP per capita and educational attainment, and individuals working in digital or knowledge-intensive sectors -- such as digital technology, academia, finance, marketing, and entrepreneurship -- are more likely to adopt or actively use the agent. To systematically characterize the substance of agent usage, we introduce a hierarchical agentic taxonomy that organizes use cases across three levels: topic, subtopic, and task. The two largest topics, Productivity & Workflow and Learning & Research, account for 57% of all agentic queries, while the two largest subtopics, Courses and Shopping for Goods, make up 22%. The top 10 out of 90 tasks represent 55% of queries. Personal use constitutes 55% of queries, while professional and educational contexts comprise 30% and 16%, respectively. In the short term, use cases exhibit strong stickiness, but over time users tend to shift toward more cognitively oriented topics. The diffusion of increasingly capable AI agents carries important implications for researchers, businesses, policymakers, and educators, inviting new lines of inquiry into this rapidly emerging class of AI capabilities.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.07828&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.07828&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "The Adoption and Usage of AI Agents: Early Evidence from Perplexity",
+          "authors": "Jerry Ma",
+          "abstract": "This paper presents the first large-scale field study of the adoption, usage intensity, and use cases of general-purpose AI agents operating in open-world web environments. Our analysis centers on Comet, an AI-powered browser developed by Perplexity, and its integrated agent, Comet Assistant. Drawing on hundreds of millions of anonymized user interactions, we address three fundamental questions: Who is using AI agents? How intensively are they using them? And what are they using them for? Our findings reveal substantial heterogeneity in adoption and usage across user segments. Earlier adopters, users in countries with higher GDP per capita and educational attainment, and individuals working in digital or knowledge-intensive sectors -- such as digital technology, academia, finance, marketing, and entrepreneurship -- are more likely to adopt or actively use the agent. To systematically characterize the substance of agent usage, we introduce a hierarchical agentic taxonomy that organizes use cases across three levels: topic, subtopic, and task. The two largest topics, Productivity & Workflow and Learning & Research, account for 57% of all agentic queries, while the two largest subtopics, Courses and Shopping for Goods, make up 22%. The top 10 out of 90 tasks represent 55% of queries. Personal use constitutes 55% of queries, while professional and educational contexts comprise 30% and 16%, respectively. In the short term, use cases exhibit strong stickiness, but over time users tend to shift toward more cognitively oriented topics. The diffusion of increasingly capable AI agents carries important implications for researchers, businesses, policymakers, and educators, inviting new lines of inquiry into this rapidly emerging class of AI capabilities.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.07828&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.07828&r=&r=ain"
+        },
+        "parsed": {
+          "title": "The Adoption and Usage of AI Agents: Early Evidence from Perplexity",
+          "authors": "Jerry Ma",
+          "topic_relevance": 65,
+          "methodological_substance": 70,
+          "potential_impact": 60,
+          "overall_score": 65,
+          "brief_reasoning": "While this provides valuable empirical evidence on AI adoption patterns using large-scale data, it focuses more on user behavior analysis than global priorities research. The implications for policy and welfare are secondary to the descriptive findings.",
+          "proceed_to_phase2": false
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 735,
+        "output_tokens": 149,
+        "cost_usd": 0.0044399999999999995,
+        "raw_text": "```json\n{\n  \"title\": \"The Adoption and Usage of AI Agents: Early Evidence from Perplexity\",\n  \"authors\": \"Jerry Ma\",\n  \"topic_relevance\": 65,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 60,\n  \"overall_score\": 65,\n  \"brief_reasoning\": \"While this provides valuable empirical evidence on AI adoption patterns using large-scale data, it focuses more on user behavior analysis than global priorities research. The implications for policy and welfare are secondary to the descriptive findings.\",\n  \"proceed_to_phase2\": false\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "AI tutoring enhances student learning without crowding out reading effort",
+        "authors": "Rilke, Rainer Michael",
+        "abstract": "We study how AI tutoring affects learning in higher education through a randomized experiment with 334 university students preparing for an incentivized exam. Students either received only textbook material, restricted access to an AI tutor requiring initial independent reading, or unrestricted access throughout the study period. AI tutor access raises test performance by 0.23 standard deviations relative to control. Surprisingly, unrestricted access significantly outperforms restricted access by 0.21 standard deviations, contradicting concerns about premature AI reliance. Behavioral analysis reveals that unrestricted access fosters gradual integration of AI support, while restricted access induces intensive bursts of prompting that disrupt learning flow. Benefits are heterogeneous: AI tutors prove most effective for students with lower baseline knowledge and stronger self-regulation skills, suggesting that seamless AI integration enhances learning when students can strategically combine independent study with targeted support.",
+        "link": "https://d.repec.org/n?u=RePEc:zbw:wzbmbh:335027&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:zbw:wzbmbh:335027&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "AI tutoring enhances student learning without crowding out reading effort",
+          "authors": "Rilke, Rainer Michael",
+          "abstract": "We study how AI tutoring affects learning in higher education through a randomized experiment with 334 university students preparing for an incentivized exam. Students either received only textbook material, restricted access to an AI tutor requiring initial independent reading, or unrestricted access throughout the study period. AI tutor access raises test performance by 0.23 standard deviations relative to control. Surprisingly, unrestricted access significantly outperforms restricted access by 0.21 standard deviations, contradicting concerns about premature AI reliance. Behavioral analysis reveals that unrestricted access fosters gradual integration of AI support, while restricted access induces intensive bursts of prompting that disrupt learning flow. Benefits are heterogeneous: AI tutors prove most effective for students with lower baseline knowledge and stronger self-regulation skills, suggesting that seamless AI integration enhances learning when students can strategically combine independent study with targeted support.",
+          "link": "https://d.repec.org/n?u=RePEc:zbw:wzbmbh:335027&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:zbw:wzbmbh:335027&r=&r=ain"
+        },
+        "parsed": {
+          "title": "AI tutoring enhances student learning without crowding out reading effort",
+          "authors": "Rilke, Rainer Michael",
+          "topic_relevance": 65,
+          "methodological_substance": 85,
+          "potential_impact": 70,
+          "overall_score": 73,
+          "brief_reasoning": "Well-designed RCT on AI tutoring with policy-relevant findings for educational technology implementation. While not directly addressing core Unjournal priorities, the rigorous methodology and potential to inform educational policy decisions make it worth reviewing.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 563,
+        "output_tokens": 154,
+        "cost_usd": 0.003999,
+        "raw_text": "```json\n{\n  \"title\": \"AI tutoring enhances student learning without crowding out reading effort\",\n  \"authors\": \"Rilke, Rainer Michael\",\n  \"topic_relevance\": 65,\n  \"methodological_substance\": 85,\n  \"potential_impact\": 70,\n  \"overall_score\": 73,\n  \"brief_reasoning\": \"Well-designed RCT on AI tutoring with policy-relevant findings for educational technology implementation. While not directly addressing core Unjournal priorities, the rigorous methodology and potential to inform educational policy decisions make it worth reviewing.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "Can artificial intelligence help improve the financial literacy of primary schools\u2019 students?",
+        "authors": "Antonio Estache",
+        "abstract": "The paper reports the results of an experiment designed to compare the impact on financial literacy skills of primary school students of a switch from a traditional pedagogical approach supported by textbooks to one relying on AI-supported methods favouring the gamification of the learning process. The study focuses on 152 students aged 8 to 11 distributed across six classes in a Bulgarian public school. The results show an important statistically significant literacy improvement for the treatment group. It also discusses the contextual dimensions accounted for in control variables that may lead to outcome differences according to the families\u2019 socio-economic background.",
+        "link": "https://d.repec.org/n?u=RePEc:eca:wpaper:2013/401374&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:eca:wpaper:2013/401374&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "Can artificial intelligence help improve the financial literacy of primary schools\u2019 students?",
+          "authors": "Antonio Estache",
+          "abstract": "The paper reports the results of an experiment designed to compare the impact on financial literacy skills of primary school students of a switch from a traditional pedagogical approach supported by textbooks to one relying on AI-supported methods favouring the gamification of the learning process. The study focuses on 152 students aged 8 to 11 distributed across six classes in a Bulgarian public school. The results show an important statistically significant literacy improvement for the treatment group. It also discusses the contextual dimensions accounted for in control variables that may lead to outcome differences according to the families\u2019 socio-economic background.",
+          "link": "https://d.repec.org/n?u=RePEc:eca:wpaper:2013/401374&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:eca:wpaper:2013/401374&r=&r=ain"
+        },
+        "parsed": {
+          "title": "Can artificial intelligence help improve the financial literacy of primary schools' students?",
+          "authors": "Antonio Estache",
+          "topic_relevance": 65,
+          "methodological_substance": 70,
+          "potential_impact": 50,
+          "overall_score": 62,
+          "brief_reasoning": "While this addresses educational outcomes and uses experimental methods, the focus on AI-gamified financial literacy for Bulgarian primary students is too narrow and removed from core global priorities areas. Limited scope for informing major policy decisions.",
+          "proceed_to_phase2": false
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 488,
+        "output_tokens": 147,
+        "cost_usd": 0.003669,
+        "raw_text": "```json\n{\n  \"title\": \"Can artificial intelligence help improve the financial literacy of primary schools' students?\",\n  \"authors\": \"Antonio Estache\",\n  \"topic_relevance\": 65,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 50,\n  \"overall_score\": 62,\n  \"brief_reasoning\": \"While this addresses educational outcomes and uses experimental methods, the focus on AI-gamified financial literacy for Bulgarian primary students is too narrow and removed from core global priorities areas. Limited scope for informing major policy decisions.\",\n  \"proceed_to_phase2\": false\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism",
+        "authors": "Guangnan Ye",
+        "abstract": "Understanding decision-making in multi-AI-agent frameworks is crucial for analyzing strategic interactions in network-effect-driven contexts. This study investigates how AI agents navigate network-effect games, where individual payoffs depend on peer participatio--a context underexplored in multi-agent systems despite its real-world prevalence. We introduce a novel workflow design using large language model (LLM)-based agents in repeated decision-making scenarios, systematically manipulating price trajectories (fixed, ascending, descending, random) and network-effect strength. Our key findings include: First, without historical data, agents fail to infer equilibrium. Second, ordered historical sequences (e.g., escalating prices) enable partial convergence under weak network effects but strong effects trigger persistent \"AI optimism\"--agents overestimate participation despite contradictory evidence. Third, randomized history disrupts convergence entirely, demonstrating that temporal coherence in data shapes LLMs' reasoning, unlike humans. These results highlight a paradigm shift: in AI-mediated systems, equilibrium outcomes depend not just on incentives, but on how history is curated, which is impossible for human.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11943&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11943&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism",
+          "authors": "Guangnan Ye",
+          "abstract": "Understanding decision-making in multi-AI-agent frameworks is crucial for analyzing strategic interactions in network-effect-driven contexts. This study investigates how AI agents navigate network-effect games, where individual payoffs depend on peer participatio--a context underexplored in multi-agent systems despite its real-world prevalence. We introduce a novel workflow design using large language model (LLM)-based agents in repeated decision-making scenarios, systematically manipulating price trajectories (fixed, ascending, descending, random) and network-effect strength. Our key findings include: First, without historical data, agents fail to infer equilibrium. Second, ordered historical sequences (e.g., escalating prices) enable partial convergence under weak network effects but strong effects trigger persistent \"AI optimism\"--agents overestimate participation despite contradictory evidence. Third, randomized history disrupts convergence entirely, demonstrating that temporal coherence in data shapes LLMs' reasoning, unlike humans. These results highlight a paradigm shift: in AI-mediated systems, equilibrium outcomes depend not just on incentives, but on how history is curated, which is impossible for human.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11943&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11943&r=&r=ain"
+        },
+        "parsed": {
+          "title": "How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism",
+          "authors": "Guangnan Ye",
+          "topic_relevance": 75,
+          "methodological_substance": 70,
+          "potential_impact": 80,
+          "overall_score": 75,
+          "brief_reasoning": "This research addresses AI coordination and decision-making patterns that could be crucial for understanding risks in AI-mediated systems, particularly relevant to existential risk considerations. The systematic experimental design with LLM agents and novel findings about 'AI optimism' could inform important policy decisions about AI deployment and governance.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 618,
+        "output_tokens": 175,
+        "cost_usd": 0.004479,
+        "raw_text": "```json\n{\n  \"title\": \"How AI Agents Follow the Herd of AI? Network Effects, History, and Machine Optimism\",\n  \"authors\": \"Guangnan Ye\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 70,\n  \"potential_impact\": 80,\n  \"overall_score\": 75,\n  \"brief_reasoning\": \"This research addresses AI coordination and decision-making patterns that could be crucial for understanding risks in AI-mediated systems, particularly relevant to existential risk considerations. The systematic experimental design with LLM agents and novel findings about 'AI optimism' could inform important policy decisions about AI deployment and governance.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    },
+    {
+      "paper": {
+        "title": "The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance",
+        "authors": "David Byrd",
+        "abstract": "Generative and agentic artificial intelligence is entering financial markets faster than existing governance can adapt. Current model-risk frameworks assume static, well-specified algorithms and one-time validations; large language models and multi-agent trading systems violate those assumptions by learning continuously, exchanging latent signals, and exhibiting emergent behavior. Drawing on complex adaptive systems theory, we model these technologies as decentralized ensembles whose risks propagate along multiple time-scales. We then propose a modular governance architecture. The framework decomposes oversight into four layers of \"regulatory blocks\": (i) self-regulation modules embedded beside each model, (ii) firm-level governance blocks that aggregate local telemetry and enforce policy, (iii) regulator-hosted agents that monitor sector-wide indicators for collusive or destabilizing patterns, and (iv) independent audit blocks that supply third-party assurance. Eight design strategies enable the blocks to evolve as fast as the models they police. A case study on emergent spoofing in multi-agent trading shows how the layered controls quarantine harmful behavior in real time while preserving innovation. The architecture remains compatible with today's model-risk rules yet closes critical observability and control gaps, providing a practical path toward resilient, adaptive AI governance in financial systems.",
+        "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11933&r=&r=ain",
+        "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11933&r=&r=ain"
+      },
+      "phase1_result": {
+        "paper": {
+          "title": "The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance",
+          "authors": "David Byrd",
+          "abstract": "Generative and agentic artificial intelligence is entering financial markets faster than existing governance can adapt. Current model-risk frameworks assume static, well-specified algorithms and one-time validations; large language models and multi-agent trading systems violate those assumptions by learning continuously, exchanging latent signals, and exhibiting emergent behavior. Drawing on complex adaptive systems theory, we model these technologies as decentralized ensembles whose risks propagate along multiple time-scales. We then propose a modular governance architecture. The framework decomposes oversight into four layers of \"regulatory blocks\": (i) self-regulation modules embedded beside each model, (ii) firm-level governance blocks that aggregate local telemetry and enforce policy, (iii) regulator-hosted agents that monitor sector-wide indicators for collusive or destabilizing patterns, and (iv) independent audit blocks that supply third-party assurance. Eight design strategies enable the blocks to evolve as fast as the models they police. A case study on emergent spoofing in multi-agent trading shows how the layered controls quarantine harmful behavior in real time while preserving innovation. The architecture remains compatible with today's model-risk rules yet closes critical observability and control gaps, providing a practical path toward resilient, adaptive AI governance in financial systems.",
+          "link": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11933&r=&r=ain",
+          "id": "https://d.repec.org/n?u=RePEc:arx:papers:2512.11933&r=&r=ain"
+        },
+        "parsed": {
+          "title": "The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance",
+          "authors": "David Byrd",
+          "topic_relevance": 75,
+          "methodological_substance": 60,
+          "potential_impact": 80,
+          "overall_score": 72,
+          "brief_reasoning": "Addresses important AI governance risks in financial systems with policy-relevant framework, though methodology appears more theoretical/conceptual than rigorously quantitative. High potential for informing AI regulation decisions.",
+          "proceed_to_phase2": true
+        },
+        "model": "claude-sonnet-4-20250514",
+        "input_tokens": 649,
+        "output_tokens": 155,
+        "cost_usd": 0.004272,
+        "raw_text": "```json\n{\n  \"title\": \"The Agentic Regulator: Risks for AI in Finance and a Proposed Agent-based Framework for Governance\",\n  \"authors\": \"David Byrd\",\n  \"topic_relevance\": 75,\n  \"methodological_substance\": 60,\n  \"potential_impact\": 80,\n  \"overall_score\": 72,\n  \"brief_reasoning\": \"Addresses important AI governance risks in financial systems with policy-relevant framework, though methodology appears more theoretical/conceptual than rigorously quantitative. High potential for informing AI regulation decisions.\",\n  \"proceed_to_phase2\": true\n}\n```"
+      },
+      "pdf_error": "PDF not available"
+    }
+  ]
+}
